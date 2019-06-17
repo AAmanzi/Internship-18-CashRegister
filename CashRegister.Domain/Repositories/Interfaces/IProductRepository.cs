@@ -8,10 +8,14 @@ namespace CashRegister.Domain.Repositories.Interfaces
     public interface IProductRepository
     {
         List<Product> GetAllProducts();
-        List<Product> GetProductsWhereNameLike(string nameSubstring);
+        List<Product> GetProductsWhereNameContains(string substring);
+        List<Product> GetProductsWhereBarcodeContains(string substring);
+        List<Product> GetProductsByReceiptId(Guid id);
+
         bool AddProduct(Product productToAdd);
         bool EditProduct(Product editedProduct);
-        bool DeleteProduct(int idOfProductToDelete);
+
         Product GetProductById(int id);
+        Product GetProductByBarcode(string barcode);
     }
 }
