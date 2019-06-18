@@ -7,6 +7,7 @@ namespace CashRegister.Domain.Repositories.Interfaces
     public interface IReceiptProductRepository
     {
         List<ReceiptProduct> GetAllReceiptProducts();
+        List<ReceiptProduct> GetReceiptProductsByReceiptId(Guid receiptId);
 
         bool AddReceiptProduct(ReceiptProduct receiptProductToAdd);
         bool EditReceiptProduct(ReceiptProduct editedReceiptProduct);

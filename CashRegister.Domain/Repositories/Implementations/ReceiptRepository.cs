@@ -31,7 +31,9 @@ namespace CashRegister.Domain.Repositories.Implementations
         public bool AddReceipt(Receipt receiptToAdd)
         {
             if (receiptToAdd.ReceiptProducts.Count == 0)
+            {
                 return false;
+            }
 
             _context.Receipts.Add(receiptToAdd);
             _context.SaveChanges();

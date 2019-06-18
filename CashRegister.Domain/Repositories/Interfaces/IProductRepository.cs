@@ -10,10 +10,11 @@ namespace CashRegister.Domain.Repositories.Interfaces
         List<Product> GetAllProducts();
         List<Product> GetProductsWhereNameContains(string substring);
         List<Product> GetProductsWhereBarcodeContains(string substring);
-        List<Product> GetProductsByReceiptId(Guid id);
 
         bool AddProduct(Product productToAdd);
         bool EditProduct(Product editedProduct);
+        bool IncreaseProductStock(int id, int increaseBy);
+        bool DecreaseProductStock(int id, int decreaseBy);
 
         Product GetProductById(int id);
         Product GetProductByBarcode(string barcode);
