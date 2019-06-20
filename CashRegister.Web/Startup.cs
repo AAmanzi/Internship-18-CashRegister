@@ -1,4 +1,6 @@
 using CashRegister.Data.Entities;
+using CashRegister.Domain.Repositories.Implementations;
+using CashRegister.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +9,9 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace CashRegister.Web
 {
@@ -26,7 +31,18 @@ namespace CashRegister.Web
             (options => options.UseSqlServer
                 (Configuration.GetConnectionString("CashRegisterContext")));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddScoped<ICashierRepository, CashierRepository>();
+            services.AddScoped<ICashRegisterRepository, CashRegisterRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IReceiptProductRepository, ReceiptProductRepository>();
+            services.AddScoped<IReceiptRepository, ReceiptRepository>();
+
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.Converters.Add(new StringEnumConverter());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
