@@ -112,7 +112,8 @@ namespace CashRegister.Domain.Repositories.Implementations
         {
             var productToEdit = _context.Products.Find(id);
 
-            if (productToEdit == null)
+            if (productToEdit == null ||
+                decreaseBy > productToEdit.InStock)
             {
                 return false;
             }
