@@ -30,7 +30,8 @@ namespace CashRegister.Domain.Repositories.Implementations
 
         public bool AddReceipt(Receipt receiptToAdd)
         {
-            if (receiptToAdd.ReceiptProducts.Count == 0)
+            if (receiptToAdd.CashierId == 0 || 
+                receiptToAdd.CashRegisterId == 0)
             {
                 return false;
             }
