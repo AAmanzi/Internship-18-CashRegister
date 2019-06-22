@@ -70,7 +70,7 @@ namespace CashRegister.Web.Controllers
             return NotFound();
         }
 
-        [HttpGet("get-by-id")]
+        [HttpGet("get-by-primary-key")]
         public IActionResult GetReceiptProductByPrimaryKey(Guid receiptId, int productId)
         {
             var receiptProduct = _receiptProductRepository.GetReceiptProductByPrimaryKey(receiptId, productId);
