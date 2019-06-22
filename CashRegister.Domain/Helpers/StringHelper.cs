@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CashRegister.Domain.Helpers
 {
-    public static class StringHelpers
+    public static class StringHelper
     {
         public static bool IsDigitsOnly(string toTest)
         {

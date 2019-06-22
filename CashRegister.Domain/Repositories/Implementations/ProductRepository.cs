@@ -53,7 +53,7 @@ namespace CashRegister.Domain.Repositories.Implementations
             if
             (
                 doesProductExist ||
-                !StringHelpers.IsDigitsOnly(productToAdd.Barcode) ||
+                !StringHelper.IsDigitsOnly(productToAdd.Barcode) ||
                 productToAdd.Barcode.Length != 13
             )
             {
