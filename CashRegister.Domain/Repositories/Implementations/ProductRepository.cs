@@ -78,13 +78,11 @@ namespace CashRegister.Domain.Repositories.Implementations
                 string.Equals(product.Barcode, editedProduct.Barcode) &&
                 !string.Equals(product.Barcode, productToEdit.Barcode));
 
-            if (!string.Equals(productToEdit.Name, editedProduct.Name) ||
-                productToEdit.InStock != editedProduct.InStock ||
-                doesEditedProductExist)
+            if (doesEditedProductExist)
             {
                 return false;
             }
-
+            
             productToEdit.Barcode = editedProduct.Barcode;
             productToEdit.Price = editedProduct.Price;
             productToEdit.TaxType = editedProduct.TaxType;
