@@ -9,7 +9,7 @@ namespace CashRegister.Domain.Repositories.Interfaces
         List<Receipt> GetAllReceipts();
         List<Receipt> GetReceiptsByCreationDate(DateTime dateOfReceipt);
 
-        bool AddReceipt (Receipt receiptToAdd);
+        Guid AddReceipt (Receipt receiptToAdd);
 
         Receipt GetReceiptById (Guid id);
     }

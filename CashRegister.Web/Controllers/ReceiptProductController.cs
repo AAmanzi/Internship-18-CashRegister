@@ -45,18 +45,18 @@ namespace CashRegister.Web.Controllers
             return Forbid();
         }
 
-        [HttpPost("edit")]
-        public IActionResult EditReceiptProduct(ReceiptProduct editedReceiptProduct)
-        {
-            var wasEditSuccessful = _receiptProductRepository.EditReceiptProduct(editedReceiptProduct);
+        //[HttpPost("edit")]
+        //public IActionResult EditReceiptProduct(ReceiptProduct editedReceiptProduct)
+        //{
+        //    var wasEditSuccessful = _receiptProductRepository.EditReceiptProduct(editedReceiptProduct);
 
-            if (wasEditSuccessful)
-            {
-                return Ok();
-            }
+        //    if (wasEditSuccessful)
+        //    {
+        //        return Ok();
+        //    }
 
-            return Forbid();
-        }
+        //    return Forbid();
+        //}
         
         [HttpDelete("delete/{receipt-id}/{product-id}")]
         public IActionResult DeleteReceiptProduct(Guid receiptId, int productId)

@@ -1,16 +1,20 @@
 import React, { Component } from "react";
-import { post } from "./services/services";
-import { CONTROLLER } from "./constants";
+import { BrowserRouter, Switch, Route, } from "react-router-dom";
+import MainScreen from "./components/MainScreen";
+import "./App.css"
 
 export default class App extends Component {
   static displayName = App.name;
 
   render() {
     return (
-      <div>
-        {/* {getAll().map(cashRegister => (
-          <div>{cashRegister.name}</div>
-        ))} */}
+      <div className="App">
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" render={() => <MainScreen />} />
+            {/* <Route exact path="/manage" render={() => <Manage />} /> */}
+          </Switch>
+        </BrowserRouter>
       </div>
     );
   }

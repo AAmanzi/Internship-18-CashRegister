@@ -28,17 +28,18 @@ namespace CashRegister.Domain.Repositories.Implementations
                 .ToList();
         }
 
-        public bool AddReceipt(Receipt receiptToAdd)
+        public Guid AddReceipt(Receipt receiptToAdd)
         {
-            if (receiptToAdd.CashierId == 0 || 
-                receiptToAdd.CashRegisterId == 0)
+            var cashier = _context.Cashiers.Find(receiptToAdd.CashierId);
+            var cashRegister = _context.CashRegisters.Find(receiptToAdd.CashRegisterId);
+            if (cashier == null || cashRegister == null)
             {
-                return false;
+                return Guid.Empty;
             }
 
             _context.Receipts.Add(receiptToAdd);
             _context.SaveChanges();
-            return true;
+            return receiptToAdd.Id;
         }
 
         public Receipt GetReceiptById(Guid id)

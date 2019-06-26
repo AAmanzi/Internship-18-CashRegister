@@ -25,6 +25,10 @@ namespace CashRegister.Domain.Repositories.Implementations
 
         public List<Product> GetProductsWhereNameContains(string substring)
         {
+            if (substring == null)
+            {
+                return new List<Product>();
+            }
             return _context.Products
                 .Where(product => 
                     product.Name.ToLower()
@@ -86,21 +90,7 @@ namespace CashRegister.Domain.Repositories.Implementations
             productToEdit.Barcode = editedProduct.Barcode;
             productToEdit.Price = editedProduct.Price;
             productToEdit.TaxType = editedProduct.TaxType;
-
-            _context.SaveChanges();
-            return true;
-        }
-
-        public bool IncreaseProductStock(int id, int increaseBy)
-        {
-            var productToEdit = _context.Products.Find(id);
-
-            if (productToEdit == null)
-            {
-                return false;
-            }
-
-            productToEdit.InStock += increaseBy;
+            productToEdit.InStock = editedProduct.InStock;
 
             _context.SaveChanges();
             return true;

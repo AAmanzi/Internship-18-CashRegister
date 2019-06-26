@@ -13,7 +13,6 @@ namespace CashRegister.Domain.Repositories.Interfaces
 
         bool AddProduct(Product productToAdd);
         bool EditProduct(Product editedProduct);
-        bool IncreaseProductStock(int id, int increaseBy);
         bool DecreaseProductStock(int id, int decreaseBy);
 
         Product GetProductById(int id);

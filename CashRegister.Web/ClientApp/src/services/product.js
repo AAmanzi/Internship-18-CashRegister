@@ -12,7 +12,7 @@ export const getFilteredProducts = async filter => {
 };
 
 export const addProduct = async product => {
-  return api.post(CONTROLLER.PRODUCT, product).then(response => response.data);
+  return api.post(CONTROLLER.PRODUCT, product);
 };
 
 export const getProductById = async id => {
@@ -20,7 +20,14 @@ export const getProductById = async id => {
 };
 
 export const editProduct = async editedProduct => {
-  return api
-    .edit(CONTROLLER.PRODUCT, editedProduct)
-    .then(response => response.data);
+  return api.edit(CONTROLLER.PRODUCT, editedProduct);
 };
+
+export const increaseProductStock = async (id, increaseBy) => {
+  return getProductById(id).then(product => {
+    product.inStock += increaseBy;
+    editProduct(product);
+  })
+};
+
+// GetByBarcode fali, zasad ne vidim potrebu za njim

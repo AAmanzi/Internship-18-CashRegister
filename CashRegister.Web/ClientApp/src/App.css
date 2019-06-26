@@ -1,0 +1,16 @@
+.ProductCard{
+  display: flex;
+  flex-direction: column;
+}
+
+.MainScreen{
+  display: flex;
+}
+
+.ReceiptForm{
+  width: 30%;
+}
+
+.Products{
+  width: 70%;
+}

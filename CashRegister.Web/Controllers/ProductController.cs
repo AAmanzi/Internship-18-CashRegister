@@ -63,19 +63,6 @@ namespace CashRegister.Web.Controllers
             return Forbid();
         }
 
-        [HttpPost("increase-stock")]
-        public IActionResult IncreaseProductStock(int id, int increaseBy)
-        {
-            var wasIncreaseSuccessful = _productRepository.IncreaseProductStock(id, increaseBy);
-
-            if (wasIncreaseSuccessful)
-            {
-                return Ok();
-            }
-
-            return Forbid();
-        }
-
         [HttpGet("get-by-id")]
         public IActionResult GetProductById(int id)
         {
