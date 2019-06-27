@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar";
 import ReceiptForm from "./ReceiptForm";
-import { getAllProducts } from "../services/product";
 import Products from "./Products";
 
 class MainScreen extends Component {
@@ -12,15 +11,6 @@ class MainScreen extends Component {
       products: []
     };
   }
-
-  // componentDidMount = () => {
-  //   getAllProducts().then(products => {
-  //     products = products.map(product => {
-  //       return { ...product, quantity: 1 };
-  //     });
-  //     this.setState({ products });
-  //   });
-  // };
 
   render() {
     return (

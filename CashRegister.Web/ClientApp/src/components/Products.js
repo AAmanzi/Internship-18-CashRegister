@@ -14,16 +14,24 @@ class Products extends Component {
   }
 
   handleFilterChange = event => {
-    console.log(event)
-    const filter = "";
-
-    getFilteredProducts(filter).then(products => this.setState({ products }));
+    this.setState({ productFilter: event.target.value });
+    this.debounceLoadProducts();
   };
+
+  debounceLoadProducts = debounce(() => {
+    getFilteredProducts(this.state.productFilter).then(products => {
+      this.setState({ productFilter: "", products });
+    });
+  }, 300);
 
   render() {
     return (
       <div className="Products">
-        <input type="text" onChange={debounce(event => this.handleFilterChange(event), 500)} />
+        <input
+          type="text"
+          onChange={this.handleFilterChange}
+          value={this.state.productFilter}
+        />
         <div className="ProductPanel">
           {this.state.products.map((product, index) => (
             <ProductCard key={index} product={product} />
