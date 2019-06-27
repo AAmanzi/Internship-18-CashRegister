@@ -29,6 +29,7 @@ namespace CashRegister.Domain.Repositories.Implementations
             {
                 return new List<Product>();
             }
+
             return _context.Products
                 .Where(product => 
                     product.Name.ToLower()
