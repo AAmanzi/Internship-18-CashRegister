@@ -34,7 +34,11 @@ class Products extends Component {
         />
         <div className="ProductPanel">
           {this.state.products.map((product, index) => (
-            <ProductCard key={index} product={product} />
+            <ProductCard
+              key={index}
+              product={product}
+              handleClick={() => this.props.handleProductClick(product)}
+            />
           ))}
         </div>
       </div>

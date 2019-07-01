@@ -1,3 +1,8 @@
+nav{
+  height: 50px;
+  background-color: #00baba33;
+}
+
 .ProductCard{
   display: flex;
   flex-direction: column;
@@ -13,4 +18,15 @@
 
 .Products{
   width: 70%;
+}
+
+.ProductPanel{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ProductCard{
+  cursor: pointer;
+  width: 25%;
 }

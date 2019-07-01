@@ -5,7 +5,7 @@ export const getAllReceiptProducts = async () => {
   return api.getAll(CONTROLLER.RECEIPT_PRODUCT).then(response => response.data);
 };
 
-export const getFilteredReceiptProducts = async receiptId => {
+export const getReceiptProductsByReceiptId = async receiptId => {
   return api
     .getFiltered(CONTROLLER.RECEIPT_PRODUCT, { receiptId })
     .then(response => response.data);

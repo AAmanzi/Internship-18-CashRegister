@@ -1,1 +1,1 @@
-export var debounce = require('lodash.debounce');
+export const debounce = require('lodash.debounce');
