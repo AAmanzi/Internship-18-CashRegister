@@ -10,7 +10,7 @@ namespace CashRegister.Domain.Repositories.Interfaces
         List<ReceiptProduct> GetReceiptProductsByReceiptId(Guid receiptId);
 
         bool AddReceiptProduct(ReceiptProduct receiptProductToAdd);
-        //bool EditReceiptProduct(ReceiptProduct editedReceiptProduct);
+        bool AddReceiptProductList(List<ReceiptProduct> receiptProducts);
         bool DeleteReceiptProduct(Guid receiptId, int productId);
 
         ReceiptProduct GetReceiptProductByPrimaryKey(Guid receiptId, int productId);

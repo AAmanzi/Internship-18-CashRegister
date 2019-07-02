@@ -15,7 +15,11 @@ export const addReceiptProduct = async receiptProduct => {
   return api.post(CONTROLLER.RECEIPT_PRODUCT, receiptProduct);
 };
 
-export const getReceiptProductByPrimaryKey = async id => {};
+export const addReceiptProductList = async receiptProducts => {
+  return api.postList(CONTROLLER.RECEIPT_PRODUCT, receiptProducts);
+};
+
+//export const getReceiptProductByPrimaryKey = async id => {};
 
 // export const editReceiptProduct = async editedReceiptProduct => {
 //   return api.edit(CONTROLLER.RECEIPT_PRODUCT, editedReceiptProduct);

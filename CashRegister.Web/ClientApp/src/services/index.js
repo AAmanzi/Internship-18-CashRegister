@@ -25,8 +25,12 @@ export const post = (controller, data) => {
   });
 };
 
+export const postList = (controller, data) => {
+  return axios.post(`${API_ROUTE}/${controller}/add-list`, [...data]);
+};
+
 export const edit = (controller, data) => {
   return axios.post(`${API_ROUTE}/${controller}/edit`, {
     ...data
-  })
-}
+  });
+};

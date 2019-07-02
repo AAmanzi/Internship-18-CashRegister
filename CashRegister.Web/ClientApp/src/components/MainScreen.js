@@ -19,23 +19,13 @@ class MainScreen extends Component {
       );
 
       if (existingProduct !== undefined) {
-        existingProduct.quantity++;
+        existingProduct.quantity += product.quantity;
         return { products: [...prevState.products] };
       }
 
-      return { products: [...prevState.products, { ...product, quantity: 1 }] };
+      return { products: [...prevState.products, { ...product }] };
     });
   };
-
-  handleQuantityChange = (product, newQuantity) => {
-    // this.setState(prevState => {
-    //   let productToEdit = prevState.products.find(
-    //     p => p.barcode === product.barcode
-    //   );
-    //   productToEdit.quantity = newQuantity
-    console.log("this")
-    console.log(product, newQuantity)
-  }
 
   render() {
     return (
@@ -43,8 +33,10 @@ class MainScreen extends Component {
         <Navbar />
         <div className="MainScreen">
           <Products handleProductClick={this.addProduct} />
-          <ReceiptForm groceryItems={this.state.products} 
-          onProductQuantityChange={this.handleQuantityChange}/>
+          <ReceiptForm
+            groceryItems={this.state.products}
+            handleReset={() => this.setState({ products: [] })}
+          />
         </div>
       </div>
     );

@@ -1,0 +1,38 @@
+import React, { Component } from "react";
+
+class ProductAmountPicker extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      amount: 1
+    };
+  }
+
+  render() {
+    return (
+      <div className="ModalCover">
+        <div className="AmountPickerModal">
+          <h2>{this.props.productName}</h2>
+          <input
+            autoFocus
+            type="number"
+            value={this.state.amount}
+            onChange={event => this.setState({ amount: event.target.value })}
+          />
+          <button className="CloseButton" onClick={this.props.handleClose}>
+            Cancel
+          </button>
+          <button
+            className="CloseButton"
+            onClick={() => this.props.handleApply(this.state.amount)}
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default ProductAmountPicker;

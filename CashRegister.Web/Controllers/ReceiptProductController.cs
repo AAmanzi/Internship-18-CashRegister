@@ -45,6 +45,19 @@ namespace CashRegister.Web.Controllers
             return Forbid();
         }
 
+        [HttpPost("add-list")]
+        public IActionResult AddReceiptProductList(List<ReceiptProduct> receiptProductsToAdd)
+        {
+            var wasAddSuccessful = _receiptProductRepository.AddReceiptProductList(receiptProductsToAdd);
+
+            if (wasAddSuccessful)
+            {
+                return Ok();
+            }
+
+            return Forbid();
+        }
+
         //[HttpPost("edit")]
         //public IActionResult EditReceiptProduct(ReceiptProduct editedReceiptProduct)
         //{

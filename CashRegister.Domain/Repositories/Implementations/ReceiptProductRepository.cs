@@ -6,6 +6,7 @@ using CashRegister.Data.Entities;
 using CashRegister.Data.Entities.Enums;
 using CashRegister.Data.Entities.Models;
 using CashRegister.Domain.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CashRegister.Domain.Repositories.Implementations
 {
@@ -25,8 +26,9 @@ namespace CashRegister.Domain.Repositories.Implementations
 
         public List<ReceiptProduct> GetReceiptProductsByReceiptId(Guid receiptId)
         {
-            return _context.ReceiptProducts.Where(receiptProduct => 
-                receiptProduct.ReceiptId == receiptId)
+            return _context.ReceiptProducts
+                .Where(receiptProduct => receiptProduct.ReceiptId == receiptId)
+                .Include(receiptProduct => receiptProduct.Product)
                 .ToList();
         }
 
@@ -49,22 +51,30 @@ namespace CashRegister.Domain.Repositories.Implementations
 
             receiptProductToAdd.UnitPrice = product.Price;
 
-            receipt.PriceSubtotal += receiptProductToAdd.UnitPrice * receiptProductToAdd.Quantity;
+            receipt.PriceSubtotal += Math.Round(
+                receiptProductToAdd.UnitPrice * receiptProductToAdd.Quantity, 
+                2, 
+                MidpointRounding.AwayFromZero);
 
             if (product.TaxType == TaxType.Excise)
             {
-                receipt.TotalExciseTax += receiptProductToAdd.UnitPrice * 
-                                          0.05 * 
-                                          receiptProductToAdd.Quantity;
+                receipt.TotalExciseTax += Math.Round(
+                    receiptProductToAdd.UnitPrice * 0.05 * receiptProductToAdd.Quantity, 
+                    2, 
+                    MidpointRounding.AwayFromZero);
             }
             else
             {
-                receipt.TotalDirectTax += receiptProductToAdd.UnitPrice * 0.25 * receiptProductToAdd.Quantity;
+                receipt.TotalDirectTax += Math.Round(
+                    receiptProductToAdd.UnitPrice * 0.25 * receiptProductToAdd.Quantity, 
+                    2, 
+                    MidpointRounding.AwayFromZero);
             }
 
-            receipt.PriceTotal = receipt.PriceSubtotal + 
-                                 receipt.TotalExciseTax + 
-                                 receipt.TotalDirectTax;
+            receipt.PriceTotal = Math.Round(
+                receipt.PriceSubtotal + receipt.TotalExciseTax + receipt.TotalDirectTax, 
+                2, 
+                MidpointRounding.AwayFromZero);
 
             product.InStock -= receiptProductToAdd.Quantity;
 
@@ -73,38 +83,60 @@ namespace CashRegister.Domain.Repositories.Implementations
             return true;
         }
 
-        //public bool EditReceiptProduct(ReceiptProduct editedReceiptProduct)
-        //{
-        //    var receipt = _context.Receipts.Find(editedReceiptProduct.ReceiptId);
-        //    var product = _context.Products.Find(editedReceiptProduct.ProductId);
-        //    var receiptProductToEdit = _context.ReceiptProducts.Find
-        //    (
-        //        editedReceiptProduct.ReceiptId,
-        //        editedReceiptProduct.ProductId
-        //    );
-        //    if (receiptProductToEdit == null)
-        //    {
-        //        return false;
-        //    }
+        public bool AddReceiptProductList(List<ReceiptProduct> receiptProductsToAdd)
+        {
+            foreach (var receiptProduct in receiptProductsToAdd)
+            {
+                var receipt = _context.Receipts.Find(receiptProduct.ReceiptId);
+                var product = _context.Products.Find(receiptProduct.ProductId);
+                var alreadyExists =
+                    _context.ReceiptProducts.Any(rp => rp.ReceiptId == receiptProduct.ReceiptId && 
+                                                       rp.ProductId == receiptProduct.ProductId);
 
-        //    var quantityDifference = editedReceiptProduct.Quantity - receiptProductToEdit.Quantity;
+                if (alreadyExists || 
+                    receiptProduct.Quantity == 0 ||
+                    receipt == null ||
+                    product == null ||
+                    product.InStock < receiptProduct.Quantity)
+                {
+                    return false;
+                }
 
-        //    product.InStock -= quantityDifference;
+                receiptProduct.UnitPrice = product.Price;
 
-        //    if (editedReceiptProduct.Quantity == 0)
-        //    {
-        //        return DeleteReceiptProduct
-        //        (
-        //            editedReceiptProduct.ReceiptId, 
-        //            editedReceiptProduct.ProductId
-        //        );
-        //    }
+                receipt.PriceSubtotal += Math.Round(
+                    receiptProduct.UnitPrice * receiptProduct.Quantity, 
+                    2, 
+                    MidpointRounding.AwayFromZero);
 
-        //    receiptProductToEdit.Quantity = editedReceiptProduct.Quantity;
+                if (product.TaxType == TaxType.Excise)
+                {
+                    receipt.TotalExciseTax += Math.Round(
+                        receiptProduct.UnitPrice * 0.05 * receiptProduct.Quantity, 
+                        2, 
+                        MidpointRounding.AwayFromZero);
+                }
+                else
+                {
+                    receipt.TotalDirectTax += Math.Round(
+                        receiptProduct.UnitPrice * 0.25 * receiptProduct.Quantity, 
+                        2, 
+                        MidpointRounding.AwayFromZero);
+                }
 
-        //    _context.SaveChanges();
-        //    return true;
-        //}
+                receipt.PriceTotal = Math.Round(
+                    receipt.PriceSubtotal + receipt.TotalExciseTax + receipt.TotalDirectTax, 
+                    2, 
+                    MidpointRounding.AwayFromZero);
+
+                product.InStock -= receiptProduct.Quantity;
+                
+                _context.ReceiptProducts.Add(receiptProduct);
+            }
+
+            _context.SaveChanges();
+            return true;
+        }
 
         public bool DeleteReceiptProduct(Guid receiptId, int productId)
         {

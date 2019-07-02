@@ -37,6 +37,7 @@ namespace CashRegister.Domain.Repositories.Implementations
                 return Guid.Empty;
             }
 
+            receiptToAdd.CreatedOn = receiptToAdd.CreatedOn.AddHours(2);
             _context.Receipts.Add(receiptToAdd);
             _context.SaveChanges();
             return receiptToAdd.Id;

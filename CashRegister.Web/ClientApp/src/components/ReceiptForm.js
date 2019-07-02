@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { addReceipt } from "../services/receipt";
-import { addReceiptProduct } from "../services/receiptProduct";
+import { addReceiptProductList } from "../services/receiptProduct";
 import ReceiptFormProduct from "./ReceiptFormProduct";
 import ReceiptModal from "./ReceiptModal";
+import ConfirmationModal from "./ConfirmationModal";
 
 class ReceiptForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      isConfirmationActive: false,
       newReceiptId: ""
     };
   }
@@ -16,7 +18,7 @@ class ReceiptForm extends Component {
   getPriceSubtotal = () => {
     let subtotal = 0;
 
-    this.props.groceryItems.map(item => {
+    this.props.groceryItems.forEach(item => {
       subtotal += item.price * item.quantity;
     });
 
@@ -26,7 +28,7 @@ class ReceiptForm extends Component {
   getPriceTotal = () => {
     let total = 0;
 
-    this.props.groceryItems.map(item => {
+    this.props.groceryItems.forEach(item => {
       total += item.price * item.quantity;
       if (item.taxType === "Excise") {
         total += item.price * item.quantity * 0.05;
@@ -38,21 +40,42 @@ class ReceiptForm extends Component {
     return total.toFixed(2);
   };
 
+  displayConfirmation = () => {
+    if (this.props.groceryItems.length === 0) return;
+
+    this.setState({ isConfirmationActive: true });
+  };
+
+  closeConfirmation = () => {
+    this.setState({ isConfirmationActive: false });
+  };
+
   submitReceipt = () => {
     if (this.props.groceryItems.length === 0) return;
 
-    addReceipt({ createdOn: new Date(), cashRegisterId: 1, cashierId: 1 }).then(
+    const createdOn = new Date();
+
+    addReceipt({ createdOn, cashRegisterId: 1, cashierId: 1 }).then(
       receiptId => {
-        this.props.groceryItems.forEach(item => {
-          addReceiptProduct({
-            ...item,
-            receiptId: receiptId,
-            productId: item.id
-          });
-        });
-        this.setState({ newReceiptId: receiptId });
+        const receiptProductsToAdd = this.props.groceryItems.map(
+          receiptProduct => {
+            return {
+              ...receiptProduct,
+              receiptId,
+              productId: receiptProduct.id
+            };
+          }
+        );
+        addReceiptProductList(receiptProductsToAdd).then(() =>
+          this.setState({ newReceiptId: receiptId })
+        );
       }
     );
+  };
+
+  closeModal = () => {
+    this.setState({ newReceiptId: "" });
+    this.props.handleReset();
   };
 
   render() {
@@ -63,6 +86,7 @@ class ReceiptForm extends Component {
             <ReceiptFormProduct key={index} product={item} />
           ))}
         </ul>
+
         <div className="ReceiptInfo">
           <div className="PriceSubtotal">
             <h2>Subtotal</h2>
@@ -73,12 +97,28 @@ class ReceiptForm extends Component {
             <h3>{this.getPriceTotal()}</h3>
           </div>
         </div>
-        <button className="PayButton" onClick={this.submitReceipt}>
+
+        <button className="PayButton" onClick={this.displayConfirmation}>
           Pay
-        </button>
+        </button>  
+
+        {this.state.isConfirmationActive ? (
+          <ConfirmationModal
+            handleClose={this.closeConfirmation}
+            handleConfirm={() => {
+              this.submitReceipt();
+              this.closeConfirmation();
+            }}
+          />
+        ) : (
+          undefined
+        )}
 
         {this.state.newReceiptId !== "" ? (
-          <ReceiptModal receiptId={this.state.newReceiptId} />
+          <ReceiptModal
+            receiptId={this.state.newReceiptId}
+            handleClose={this.closeModal}
+          />
         ) : (
           undefined
         )}
