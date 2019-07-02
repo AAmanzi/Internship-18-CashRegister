@@ -1,39 +1,43 @@
-nav{
+button:focus {
+  background: pink;
+}
+
+nav {
   height: 50px;
   background-color: #00baba33;
 }
 
-.ProductCard{
+.ProductCard {
   display: flex;
   flex-direction: column;
 }
 
-.MainScreen{
+.MainScreen {
   display: flex;
 }
 
-.ReceiptForm{
+.ReceiptForm {
   width: 30%;
 }
 
-.Products{
+.Products {
   width: 70%;
 }
 
-.ProductPanel{
+.ProductPanel {
   position: relative;
   display: flex;
   flex-wrap: wrap;
 }
 
-.ProductCard{
+.ProductCard {
   background: none;
   border: none;
   cursor: pointer;
   width: 25%;
 }
 
-.ModalCover{
+.ModalCover {
   position: absolute;
   top: 0;
   right: 0;
@@ -43,20 +47,30 @@ nav{
   background-color: #11333333;
 }
 
-.ReceiptModal, .ConfirmationModal, .AmountPickerModal{
+.ReceiptModal,
+.ConfirmationModal,
+.AmountPickerModal {
   margin: auto;
   margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 60%;
+  width: 40%;
   background-color: #fff;
 }
 
-.ConfirmationModal{
+.ReceiptModal {
+  padding-bottom: 5px;
+}
+
+.ConfirmationModal {
   width: 30%;
 }
 
-.AmountPickerModal{
-  width: 40%;
+.PrintButton {
+  font-size: 26px;
+  position: absolute;
+  top: 65vh;
+  left: 70vw;
+  z-index: 10;
 }

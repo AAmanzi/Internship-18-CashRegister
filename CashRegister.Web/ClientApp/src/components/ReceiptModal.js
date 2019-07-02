@@ -1,29 +1,12 @@
 import React, { Component } from "react";
+import ReactToPrint from "react-to-print";
 import { getReceiptById } from "../services/receipt";
 import { getReceiptProductsByReceiptId } from "../services/receiptProduct";
 import ReceiptFormProduct from "./ReceiptFormProduct";
 
-class ReceiptModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      receipt: null,
-      receiptProducts: []
-    };
-  }
-  componentDidMount = () => {
-    getReceiptById(this.props.receiptId).then(receipt => {
-      getReceiptProductsByReceiptId(receipt.id).then(receiptProducts => {
-        const formattedReceiptProducts = receiptProducts.map(rp => {
-          return { ...rp.product, quantity: rp.quantity };
-        });
-        this.setState({ receipt, receiptProducts: formattedReceiptProducts });
-      });
-    });
-  };
-
+class Content extends Component {
   render() {
-    const { receipt, receiptProducts } = this.state;
+    const { receipt, receiptProducts } = this.props;
     const dateOptions = {
       weekday: "long",
       year: "numeric",
@@ -33,15 +16,9 @@ class ReceiptModal extends Component {
       minute: "2-digit"
     };
 
-    if (receipt === null || receiptProducts.length === 0)
-      return <div>Loading...</div>;
     return (
       <div className="ModalCover">
         <div className="ReceiptModal">
-          <button className="ButtonClose" onClick={this.props.handleClose}>
-            Close
-          </button>
-
           <div className="ReceiptElement">
             <span>{`Created on: ${new Date(
               receipt.createdOn
@@ -78,8 +55,54 @@ class ReceiptModal extends Component {
               <h4>{receipt.priceTotal.toFixed(2)}</h4>
             </div>
           </div>
-          <button>Print</button>
         </div>
+      </div>
+    );
+  }
+}
+
+class ReceiptModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      receipt: null,
+      receiptProducts: []
+    };
+  }
+
+  componentDidMount = () => {
+    getReceiptById(this.props.receiptId).then(receipt => {
+      getReceiptProductsByReceiptId(receipt.id).then(receiptProducts => {
+        const formattedReceiptProducts = receiptProducts.map(rp => {
+          return { ...rp.product, quantity: rp.quantity };
+        });
+        this.setState({ receipt, receiptProducts: formattedReceiptProducts });
+      });
+    });
+  };
+
+  render() {
+    const { receipt, receiptProducts } = this.state;
+
+    if (receipt === null || receiptProducts.length === 0)
+      return <div>Loading...</div>;
+    return (
+      <div>
+        <ReactToPrint
+          trigger={() => (
+            <div className="PrintButton">
+              <button autoFocus onClick={this.props.handleClose}>
+                Print receipt!
+              </button>
+            </div>
+          )}
+          content={() => this.componentRef}
+        />
+        <Content
+          ref={el => (this.componentRef = el)}
+          receipt={receipt}
+          receiptProducts={receiptProducts}
+        />
       </div>
     );
   }
