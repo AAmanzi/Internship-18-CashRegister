@@ -36,6 +36,8 @@ class Products extends Component {
   };
 
   addProduct = quantity => {
+    //TODO Test quantity vs current product quantity
+
     if (quantity <= 0) {
       return this.closeAmountPicker();
     }
@@ -52,6 +54,7 @@ class Products extends Component {
     return (
       <div className="Products">
         <input
+          autoFocus
           type="text"
           onChange={this.handleFilterChange}
           value={this.state.productFilter}

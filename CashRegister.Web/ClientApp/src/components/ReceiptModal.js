@@ -41,6 +41,17 @@ class ReceiptModal extends Component {
           <button className="ButtonClose" onClick={this.props.handleClose}>
             Close
           </button>
+
+          <div className="ReceiptElement">
+            <span>{`Created on: ${new Date(
+              receipt.createdOn
+            ).toLocaleDateString("en-EU", dateOptions)}`}</span>
+          </div>
+
+          <div className="ReceiptElement">
+            <span>{`Receipt No: ${receipt.id}`}</span>
+          </div>
+
           <ul className="GroceryItems">
             {receiptProducts.map((item, index) => (
               <ReceiptFormProduct key={index} product={item} />
@@ -53,24 +64,18 @@ class ReceiptModal extends Component {
             </div>
 
             <div className="ReceiptElement">
-              <h2>Excise tax:</h2>
-              <h3>{receipt.totalExciseTax.toFixed(2)}</h3>
+              <h3>Excise tax:</h3>
+              <h4>{receipt.totalExciseTax.toFixed(2)}</h4>
             </div>
 
             <div className="ReceiptElement">
-              <h2>Direct tax:</h2>
-              <h3>{receipt.totalDirectTax.toFixed(2)}</h3>
+              <h3>Direct tax:</h3>
+              <h4>{receipt.totalDirectTax.toFixed(2)}</h4>
             </div>
 
             <div className="ReceiptElement">
-              <h2>Total</h2>
-              <h3>{receipt.priceTotal.toFixed(2)}</h3>
-            </div>
-
-            <div className="ReceiptElement">
-              <h3>{`Created on: ${new Date(
-                receipt.createdOn
-              ).toLocaleDateString("en-EU", dateOptions)}`}</h3>
+              <h3>Total</h3>
+              <h4>{receipt.priceTotal.toFixed(2)}</h4>
             </div>
           </div>
           <button>Print</button>

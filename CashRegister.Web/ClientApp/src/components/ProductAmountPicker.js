@@ -9,6 +9,17 @@ class ProductAmountPicker extends Component {
     };
   }
 
+  handleKeyDown = event => {
+    switch (event.key) {
+      case "Enter":
+        return this.props.handleApply(this.state.amount);
+      case "Escape":
+        return this.props.handleClose();
+      default:
+        return undefined;
+    }
+  };
+
   render() {
     return (
       <div className="ModalCover">
@@ -18,7 +29,10 @@ class ProductAmountPicker extends Component {
             autoFocus
             type="number"
             value={this.state.amount}
-            onChange={event => this.setState({ amount: event.target.value })}
+            onChange={event =>
+              this.setState({ amount: parseInt(event.target.value, 10) })
+            }
+            onKeyDown={this.handleKeyDown}
           />
           <button className="CloseButton" onClick={this.props.handleClose}>
             Cancel
