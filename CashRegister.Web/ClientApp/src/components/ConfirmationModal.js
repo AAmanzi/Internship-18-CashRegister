@@ -5,9 +5,15 @@ class ConfirmationModal extends Component {
     this.confirmButton.focus();
   };
 
+  handleKeyPress = event => {
+    if (event.key === "Escape") {
+      this.props.handleClose();
+    }
+  };
+
   render() {
     return (
-      <div className="ModalCover">
+      <div className="ModalCover" onKeyDown={this.handleKeyPress} tabIndex="0">
         <div className="ConfirmationModal">
           <button className="CloseButton" onClick={this.props.handleClose}>
             Close

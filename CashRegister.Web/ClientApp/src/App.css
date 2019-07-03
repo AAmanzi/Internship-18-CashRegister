@@ -12,16 +12,26 @@ nav {
   flex-direction: column;
 }
 
+.ScreenContainer{
+  height: 100vh;
+}
+
 .MainScreen {
   display: flex;
+  height: 94.4%;
+  position: relative;
 }
 
 .ReceiptForm {
+  border-left: 10px solid #00baba55;
   width: 30%;
 }
 
 .Products {
   width: 70%;
+  max-height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .ProductPanel {

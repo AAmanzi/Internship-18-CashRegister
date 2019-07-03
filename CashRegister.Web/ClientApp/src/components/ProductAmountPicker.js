@@ -26,6 +26,7 @@ class ProductAmountPicker extends Component {
         <div className="AmountPickerModal">
           <h2>{this.props.productName}</h2>
           <input
+            className="InputAmount"
             autoFocus
             type="number"
             value={this.state.amount}

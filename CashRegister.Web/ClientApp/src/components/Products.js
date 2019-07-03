@@ -24,6 +24,7 @@ class Products extends Component {
   debounceLoadProducts = debounce(() => {
     getFilteredProducts(this.state.productFilter).then(products => {
       this.setState({ productFilter: "", products });
+      this.props.triggeredProductsLoad();
     });
   }, 300);
 
@@ -54,10 +55,14 @@ class Products extends Component {
     return (
       <div className="Products">
         <input
+          className="ProductsFilterInput"
           autoFocus
           type="text"
           onChange={this.handleFilterChange}
           value={this.state.productFilter}
+          ref={input => {
+            this.searchInput = input;
+          }}
         />
 
         <div className="ProductPanel">
