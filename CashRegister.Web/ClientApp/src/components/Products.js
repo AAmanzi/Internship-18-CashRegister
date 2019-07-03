@@ -54,16 +54,18 @@ class Products extends Component {
   render() {
     return (
       <div className="Products">
-        <input
-          className="ProductsFilterInput"
-          autoFocus
-          type="text"
-          onChange={this.handleFilterChange}
-          value={this.state.productFilter}
-          ref={input => {
-            this.searchInput = input;
-          }}
-        />
+        <div className="ProductsHeader">
+          <input
+            className="ProductsFilterInput"
+            autoFocus
+            type="text"
+            onChange={this.handleFilterChange}
+            value={this.state.productFilter}
+            ref={input => {
+              this.searchInput = input;
+            }}
+          />
+        </div>
 
         <div className="ProductPanel">
           {this.state.products.map((product, index) => (

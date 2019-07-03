@@ -1,18 +1,69 @@
+/*
+  LondonBrick - #a34b4c
+  IndianMud - #b65c5c
+  BloodPudding - #2d1a1b
+  FuschiaSlate - #412e38
+  Fuschia - #d3005d
+  OysterSilk - #d5b2b2
+  White - #fff8f8
+*/
+
+body {
+  color: #2d1a1b;
+}
+
+button {
+  border-radius: 4px;
+  border: none;
+  background: #b65c5c;
+  color: #fff8f8;
+}
+
 button:focus {
-  background: pink;
+  outline: none;
+  background: #2d1a1b;
+}
+
+input {
+  background: #2d1a1b;
+  color: #fff8f8;
+  border: 3px solid #2d1a1b;
+  border-radius: 6px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #d3005d;
 }
 
 nav {
   height: 50px;
-  background-color: #00baba33;
+  background-color: #a34b4c;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.NavLinks {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+.NavItem {
+  font-size: 22px;
+  cursor: pointer;
+  margin: 0 20px;
 }
 
 .ProductCard {
+  color: #2d1a1b;
   display: flex;
   flex-direction: column;
 }
 
-.ScreenContainer{
+.ScreenContainer {
   height: 100vh;
 }
 
@@ -20,10 +71,12 @@ nav {
   display: flex;
   height: 94.4%;
   position: relative;
+  border-bottom: 15px solid #412e38;
+  border-right: 20px solid #412e38;
 }
 
 .ReceiptForm {
-  border-left: 10px solid #00baba55;
+  border-left: 40px solid #412e38;
   width: 30%;
 }
 
@@ -34,6 +87,19 @@ nav {
   overflow-y: scroll;
 }
 
+.ProductsHeader{
+  padding: 5px 0;
+  width: 100%;
+  background-color: #412e38;
+  display: flex;
+  justify-content: center;
+}
+
+.ProductsFilterInput{
+  font-size: 16px;
+  width: 500px;
+}
+
 .ProductPanel {
   position: relative;
   display: flex;
@@ -42,9 +108,16 @@ nav {
 
 .ProductCard {
   background: none;
-  border: none;
+  border: 3px solid transparent;
+  border-radius: 4px;
   cursor: pointer;
   width: 25%;
+}
+
+.ProductCard:focus{
+  background: none;
+  outline: none;
+  border-color: #d3005d;
 }
 
 .ModalCover {
