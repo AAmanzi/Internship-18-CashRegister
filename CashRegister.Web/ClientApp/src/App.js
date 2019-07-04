@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { BrowserRouter, Switch, Route, } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import "./App.css";
 import MainScreen from "./components/MainScreen";
-import "./App.css"
+import ProductsScreen from "./components/ProductsScreen";
 
 export default class App extends Component {
   static displayName = App.name;
@@ -12,7 +13,7 @@ export default class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" render={() => <MainScreen />} />
-            {/* <Route exact path="/manage" render={() => <Manage />} /> */}
+            <Route exact path="/products" render={() => <ProductsScreen />} />
           </Switch>
         </BrowserRouter>
       </div>

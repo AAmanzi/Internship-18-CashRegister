@@ -64,17 +64,11 @@ nav {
   margin: 0 20px;
 }
 
-.ProductCard {
-  color: #2d1a1b;
-  display: flex;
-  flex-direction: column;
-}
-
 .ScreenContainer {
   height: 100vh;
 }
 
-.ScreenContainer:focus {
+.Products:focus {
   outline: none;
 }
 
@@ -86,8 +80,10 @@ nav {
   border-right: 20px solid #412e38;
 }
 
-.ReceiptForm {
-  border-left: 40px solid #412e38;
+.ReceiptForm, .ProductForm {
+  display: flex;
+  flex-direction: column;
+  border-left: 4px solid #412e38;
   width: 30%;
 }
 
@@ -126,6 +122,20 @@ nav {
   border-radius: 4px;
   cursor: pointer;
   width: 25%;
+  color: #2d1a1b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.ProductCard h1{
+  font-size: 26px;
+  text-align: center;
+}
+
+.ProductCard div{
+  display: block;
 }
 
 .ProductCard:focus {

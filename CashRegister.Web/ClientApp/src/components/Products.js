@@ -2,17 +2,15 @@ import React, { Component } from "react";
 import { debounce } from "../utils";
 import { getFilteredProducts } from "../services/product";
 import ProductCard from "./ProductCard";
-import ProductAmountPicker from "./ProductAmountPicker";
 
 class Products extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isAmountPickerActive: false,
-      selectedProduct: null,
       productFilter: "",
-      products: []
+      products: [],
+      focused: null
     };
   }
 
@@ -23,37 +21,130 @@ class Products extends Component {
 
   debounceLoadProducts = debounce(() => {
     getFilteredProducts(this.state.productFilter).then(products => {
-      this.setState({ productFilter: "", products });
-      this.props.triggeredProductsLoad();
+      this.setState({ productFilter: "", products, focused: -1 });
     });
   }, 300);
 
-  closeAmountPicker = () => {
-    this.setState({ isAmountPickerActive: false });
-  };
+  handleKeyPress = event => {
+    const { focused } = this.state;
+    const allProducts = document.getElementsByClassName("ProductCard");
+    switch (event.key) {
+      case "ArrowRight":
+        if (focused === null) {
+          return undefined;
+        }
 
-  displayAmountPicker = product => {
-    this.setState({ isAmountPickerActive: true, selectedProduct: product });
-  };
+        if (
+          ((focused + 1) % 4 === 0 && focused !== -1) ||
+          focused + 1 >= allProducts.length
+        ) {
+          return;
+        }
 
-  addProduct = quantity => {
-    //TODO Test quantity vs current product quantity
+        this.setState(prevState => {
+          return { focused: prevState.focused + 1 };
+        });
+        return allProducts[focused + 1].focus();
 
-    if (quantity <= 0) {
-      return this.closeAmountPicker();
+      case "ArrowLeft":
+        if (focused === null) {
+          return undefined;
+        }
+
+        if (focused < 0) {
+          this.setState({ focused: 0 });
+          return allProducts[0].focus();
+        }
+
+        if (focused % 4 === 0) {
+          return;
+        }
+
+        this.setState(prevState => {
+          return { focused: prevState.focused - 1 };
+        });
+        return allProducts[focused - 1].focus();
+
+      case "ArrowDown":
+        if (focused === null) {
+          return undefined;
+        }
+
+        if (focused < 0) {
+          this.setState({ focused: 0 });
+          return allProducts[0].focus();
+        }
+
+        if (focused + 4 >= allProducts.length) {
+          return;
+        }
+
+        this.setState(prevState => {
+          return { focused: prevState.focused + 4 };
+        });
+        return allProducts[focused + 4].focus();
+
+      case "ArrowUp":
+        if (focused === null) {
+          return undefined;
+        }
+
+        if (focused < 0) {
+          this.setState({ focused: 0 });
+          return allProducts[0].focus();
+        }
+
+        if (focused < 4) {
+          this.setState({ focused: null });
+          return document.querySelector(".ProductsFilterInput").focus();
+        }
+
+        this.setState(prevState => {
+          return { focused: prevState.focused - 4 };
+        });
+        return allProducts[focused - 4].focus();
+
+      case "Escape":
+        if (focused !== null) {
+          this.setState({ focused: null });
+        } else {
+          this.setState({ focused: -1 });
+        }
+        return document.querySelector(".ProductsFilterInput").focus();
+
+      case "Enter":
+        if (
+          (focused === -1 || focused === null) &&
+          document.activeElement === document.querySelector(".Products")
+        )
+          return document.querySelector(".ProductsFilterInput").focus();
+        return this.setState({ focused: null });
+
+      case " ":
+        if (
+          document
+            .querySelector(".ScreenContainer")
+            .contains(document.querySelector(".ReceiptForm"))
+        ) {
+          return document.querySelector(".PayButton").focus();
+        }
+        break;
+
+      default:
+        return undefined;
     }
-    const productToAdd = {
-      ...this.state.selectedProduct,
-      quantity
-    };
-
-    this.props.handleProductClick(productToAdd);
-    this.setState({ isAmountPickerActive: false });
   };
 
   render() {
     return (
-      <div className="Products">
+      <div
+        className="Products"
+        ref={button => {
+          this.productsContainer = button;
+        }}
+        onKeyDown={this.handleKeyPress}
+        tabIndex="0"
+      >
         <div className="ProductsHeader">
           <input
             className="ProductsFilterInput"
@@ -72,20 +163,10 @@ class Products extends Component {
             <ProductCard
               key={index}
               product={product}
-              handleClick={() => this.displayAmountPicker(product)}
+              handleClick={() => this.props.handleProductClick(product)}
             />
           ))}
         </div>
-
-        {this.state.isAmountPickerActive ? (
-          <ProductAmountPicker
-            productName={this.state.selectedProduct.name}
-            handleClose={this.closeAmountPicker}
-            handleApply={this.addProduct}
-          />
-        ) : (
-          undefined
-        )}
       </div>
     );
   }
