@@ -15,10 +15,6 @@ class MainScreen extends Component {
     };
   }
 
-  componentDidCatch = () => {
-    this.screenContainer.focus();
-  };
-
   closeAmountPicker = () => {
     this.setState({ isAmountPickerActive: false });
   };

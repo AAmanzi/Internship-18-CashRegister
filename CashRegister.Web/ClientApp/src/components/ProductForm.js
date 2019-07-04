@@ -5,15 +5,67 @@ class ProductForm extends Component {
     super(props);
 
     this.state = {
-      product: null
+      name: null,
+      barcode: null,
+      price: null,
+      taxType: null,
+      inStock: null
     };
   }
 
+  componentDidMount = () => {
+    this.setState({ ...this.props.product });
+  };
+
+  componentDidUpdate = oldProps => {
+    const newProps = this.props;
+    if (oldProps.product !== newProps.product) {
+      this.setState({ ...newProps.product });
+    }
+  };
+
+  handleBarcodeChange = event => {
+    this.setState({ barcode: event.target.value });
+  };
+
+  handlePriceChange = event => {
+    this.setState({ price: event.target.value });
+  };
+
+  handleTaxTypeChange = event => {
+    this.setState({ taxType: event.target.value });
+  };
+
   render() {
+    const { name, barcode, price, taxType, inStock } = this.state;
+    if (
+      name === null ||
+      barcode === null ||
+      price === null ||
+      taxType === null ||
+      inStock === null
+    ) {
+      return (
+        <div className="ProductForm">
+          <h2>Select a product to edit</h2>
+        </div>
+      );
+    }
     return (
       <div className="ProductForm">
-        <h2>{this.props.productName}</h2>
-        <button className="SaveButton">Save</button>
+        <h2>{name}</h2>
+        <input onChange={this.handleBarcodeChange} value={barcode} />
+        <input onChange={this.handlePriceChange} value={price} />
+
+        {/* TODO: TaxType dropdown */}
+        <input onChange={this.handleTaxTypeChange} value={taxType} />
+
+        <span>In stock: {inStock}</span>
+
+        <div className="ButtonContainer">
+          <button className="SaveButton">Save</button>
+          <button className="StockButton">Increase stock</button>
+        </div>
       </div>
     );
   }

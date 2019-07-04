@@ -8,12 +8,11 @@ class ProductsScreen extends Component {
     super(props);
 
     this.state = {
-      selectedProduct: null,
-      focused: null
+      selectedProduct: null
     };
   }
 
-  componentDidCatch = () => {
+  componentDidMount = () => {
     this.screenContainer.focus();
   };
 
@@ -35,10 +34,13 @@ class ProductsScreen extends Component {
         <Navbar />
         <div className="MainScreen">
           <Products handleProductClick={this.selectProduct} />
+
           {selectedProduct !== null ? (
-            <ProductForm productName={selectedProduct.name} />
+            <ProductForm product={selectedProduct} />
           ) : (
-            undefined
+            <div className="ProductForm">
+              <h2>Select a product to edit</h2>
+            </div>
           )}
         </div>
       </div>

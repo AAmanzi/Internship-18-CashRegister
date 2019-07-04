@@ -15,13 +15,17 @@ body {
 button {
   border-radius: 4px;
   border: none;
-  background: #b65c5c;
+  background-color: #b65c5c;
   color: #fff8f8;
 }
 
 button:focus {
   outline: none;
-  background: #2d1a1b;
+  background-color: #2d1a1b;
+}
+
+button:hover {
+  background-color: #d36f6f;
 }
 
 input {
@@ -48,6 +52,10 @@ nav {
   );
   display: flex;
   justify-content: flex-end;
+}
+
+.Red {
+  color: darkred;
 }
 
 .NavLinks {
@@ -80,11 +88,34 @@ nav {
   border-right: 20px solid #412e38;
 }
 
-.ReceiptForm, .ProductForm {
+.ReceiptForm,
+.ProductForm {
   display: flex;
   flex-direction: column;
   border-left: 4px solid #412e38;
   width: 30%;
+}
+
+.ProductForm {
+  color: #fff8f8;
+  background-color: #493540;
+}
+
+.ProductForm button {
+  background-color: #412e38;
+  background-image: linear-gradient(
+    to bottom,
+    #493540,
+    #47333e,
+    #45313c,
+    #43303a,
+    #412e38
+  );
+  border: 1px solid #2d1a1b;
+}
+
+.ProductForm button:hover {
+  background-image: none;
 }
 
 .Products {
@@ -129,12 +160,12 @@ nav {
   align-content: center;
 }
 
-.ProductCard h1{
+.ProductCard h1 {
   font-size: 26px;
   text-align: center;
 }
 
-.ProductCard div{
+.ProductCard div {
   display: block;
 }
 
@@ -142,6 +173,25 @@ nav {
   background: none;
   outline: none;
   border-color: #d3005d;
+  background-image: linear-gradient(
+    to bottom,
+    #ffffff,
+    #fefdfe,
+    #fefcfd,
+    #fffafb,
+    #fff8f8
+  );
+}
+
+.ProductCard:hover {
+  background-image: linear-gradient(
+    to bottom,
+    #ffffff,
+    #fefdfe,
+    #fefcfd,
+    #fffafb,
+    #fff8f8
+  );
 }
 
 .ModalCover {
