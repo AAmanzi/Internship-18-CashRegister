@@ -6,6 +6,18 @@ export const isNullOrWhitespace = input => {
   return input.replace(/\s/g, "").length < 1;
 };
 
+export const formatDate = date => {
+  var d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-");
+};
+
 //  Product errors:
 //    1: Invalid barcode
 //    2: Invalid price

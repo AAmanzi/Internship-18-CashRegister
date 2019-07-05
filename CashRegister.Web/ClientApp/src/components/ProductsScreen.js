@@ -37,7 +37,6 @@ class ProductsScreen extends Component {
         ref={button => {
           this.screenContainer = button;
         }}
-        onKeyDown={this.handleKeyPress}
         tabIndex="0"
       >
         <Navbar />
@@ -54,7 +53,7 @@ class ProductsScreen extends Component {
               productHasUpdated={this.onProductUpdate}
             />
           ) : (
-            <BlankProductForm productWasAdded={this.onProductUpdate}/>
+            <BlankProductForm productWasAdded={this.onProductUpdate} />
           )}
         </div>
       </div>

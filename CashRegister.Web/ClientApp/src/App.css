@@ -150,7 +150,7 @@ nav {
   background-image: none;
 }
 
-.ProductForm span{
+.ProductForm span {
   font-size: 26px;
 }
 
@@ -174,7 +174,7 @@ nav {
   width: 500px;
 }
 
-.ProductPanel {
+.ProductPanel, .ReceiptPanel {
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -183,17 +183,23 @@ nav {
   height: 95%;
 }
 
-.ProductCard {
+.ProductCard,
+.ReceiptCard {
   background: none;
   border: 3px solid transparent;
   border-radius: 4px;
   cursor: pointer;
   width: 25%;
+  height: 50%;
   color: #2d1a1b;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
+}
+
+.ReceiptCard{
+  width: 33%;
 }
 
 .ProductCard h1 {
@@ -205,7 +211,8 @@ nav {
   display: block;
 }
 
-.ProductCard:focus {
+.ProductCard:focus,
+.ReceiptCard:focus {
   background: none;
   outline: none;
   border-color: #d3005d;
@@ -219,7 +226,8 @@ nav {
   );
 }
 
-.ProductCard:hover {
+.ProductCard:hover,
+.ReceiptCard:hover {
   background-image: linear-gradient(
     to bottom,
     #ffffff,
@@ -237,7 +245,7 @@ nav {
   bottom: 0;
   left: 0;
   z-index: 3;
-  background-color: #11333333;
+  background-color: #453d3d77;
 }
 
 .ReceiptModal,
@@ -270,4 +278,13 @@ nav {
   top: 65vh;
   left: 70vw;
   z-index: 10;
+}
+
+.Receipts {
+  width: 100%;
+  overflow: hidden;
+}
+
+.Receipts:focus {
+  outline: none;
 }
