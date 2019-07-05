@@ -29,6 +29,7 @@ class AmountPickerModal extends Component {
             className="InputAmount"
             autoFocus
             type="number"
+            min="1"
             value={this.state.amount}
             onChange={event =>
               this.setState({ amount: parseInt(event.target.value, 10) })

@@ -14,9 +14,14 @@ class BlankProductForm extends Component {
     this.setState({ isAddProductLoaded: true });
   };
 
+  onProductAdd = () => {
+    this.setState({ isAddProductLoaded: false });
+    this.props.productWasAdded();
+  };
+
   render() {
     if (this.state.isAddProductLoaded) {
-      return <AddProductForm productWasAdded={this.props.productWasAdded} />;
+      return <AddProductForm productWasAdded={this.onProductAdd} />;
     }
     return (
       <div className="ProductForm">

@@ -75,6 +75,11 @@ class EditProductForm extends Component {
     this.setState({ isAddProductLoaded: true });
   };
 
+  onProductAdd = () => {
+    this.setState({ isAddProductLoaded: false, name: null });
+    this.props.productHasUpdated();
+  };
+
   increaseProductStock = quantity => {
     if (quantity <= 0) {
       return;
@@ -149,7 +154,7 @@ class EditProductForm extends Component {
     }
 
     if (this.state.isAddProductLoaded) {
-      return <AddProductForm productWasAdded={this.props.productHasUpdated} />;
+      return <AddProductForm productWasAdded={this.onProductAdd} />;
     }
 
     return (

@@ -12,10 +12,14 @@ class AddProductForm extends Component {
       barcode: "",
       price: "",
       taxType: "",
-      inStock: "",
+      inStock: 0,
       isConfirmationActive: false
     };
   }
+
+  handleNameChange = event => {
+    this.setState({ name: event.target.value });
+  };
 
   handleBarcodeChange = event => {
     const value = event.target.value;
@@ -39,6 +43,10 @@ class AddProductForm extends Component {
     this.setState({ taxType: event.target.value });
   };
 
+  handleInStockChange = event => {
+    this.setState({ inStock: event.target.value });
+  };
+
   displayConfirmation = () => {
     this.setState({ isConfirmationActive: true });
   };
@@ -48,9 +56,8 @@ class AddProductForm extends Component {
   };
 
   applyChanges = () => {
-    const { id, name, barcode, price, taxType, inStock } = this.state;
+    const { name, barcode, price, taxType, inStock } = this.state;
     const newProduct = {
-      id,
       name,
       barcode,
       price,
@@ -86,7 +93,7 @@ class AddProductForm extends Component {
         <span>Price:</span>
         <input onChange={this.handlePriceChange} value={price} />
 
-        <select value="" onChange={this.handleTaxTypeChange}>
+        <select value={taxType} onChange={this.handleTaxTypeChange}>
           <option value="">Please select a tax type...</option>
           <option value="Excise">Excise</option>
           <option value="Direct">Direct</option>
@@ -95,6 +102,7 @@ class AddProductForm extends Component {
         <span>In stock:</span>
         <input
           type="number"
+          min="0"
           value={inStock}
           onChange={this.handleInStockChange}
         />
