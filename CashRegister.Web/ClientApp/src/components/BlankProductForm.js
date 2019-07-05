@@ -1,0 +1,32 @@
+import React, { Component } from "react";
+import AddProductForm from "./AddProductForm";
+
+class BlankProductForm extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isAddProductLoaded: false
+    };
+  }
+
+  loadAddProduct = () => {
+    this.setState({ isAddProductLoaded: true });
+  };
+
+  render() {
+    if (this.state.isAddProductLoaded) {
+      return <AddProductForm productWasAdded={this.props.productWasAdded} />;
+    }
+    return (
+      <div className="ProductForm">
+        <h2>Select a product to edit</h2>
+        <button onClick={this.loadAddProduct} className="AddProduct">
+          Add product
+        </button>
+      </div>
+    );
+  }
+}
+
+export default BlankProductForm;

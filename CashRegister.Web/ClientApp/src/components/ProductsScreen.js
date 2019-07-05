@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar";
 import Products from "./Products";
-import ProductForm from "./ProductForm";
+import EditProductForm from "./EditProductForm";
+import BlankProductForm from "./BlankProductForm";
 
 class ProductsScreen extends Component {
   constructor(props) {
@@ -21,12 +22,12 @@ class ProductsScreen extends Component {
     this.setState({ selectedProduct: product });
   };
 
-  handleHasProductUpdated = () => {
+  onProductUpdate = () => {
     this.setState({ hasProductUpdated: true });
   };
 
   handleHaveProductsRefreshed = () => {
-    this.setState({ hasProductUpdated: false});
+    this.setState({ hasProductUpdated: false });
   };
 
   render() {
@@ -48,14 +49,12 @@ class ProductsScreen extends Component {
           />
 
           {this.state.selectedProduct !== null ? (
-            <ProductForm
+            <EditProductForm
               product={this.state.selectedProduct}
-              productHasUpdated={this.handleHasProductUpdated}
+              productHasUpdated={this.onProductUpdate}
             />
           ) : (
-            <div className="ProductForm">
-              <h2>Select a product to edit</h2>
-            </div>
+            <BlankProductForm productWasAdded={this.onProductUpdate}/>
           )}
         </div>
       </div>

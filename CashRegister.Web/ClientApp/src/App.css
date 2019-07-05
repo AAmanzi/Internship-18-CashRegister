@@ -150,6 +150,10 @@ nav {
   background-image: none;
 }
 
+.ProductForm span{
+  font-size: 26px;
+}
+
 .Products {
   position: relative;
   width: 70%;

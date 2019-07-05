@@ -3,8 +3,10 @@ import { editProduct } from "../services/product";
 import { validateProduct } from "../utils";
 import AmountPickerModal from "./AmountPickerModal";
 import ConfirmationModal from "./ConfirmationModal";
+import BlankProductForm from "./BlankProductForm";
+import AddProductForm from "./AddProductForm";
 
-class ProductForm extends Component {
+class EditProductForm extends Component {
   constructor(props) {
     super(props);
 
@@ -15,7 +17,8 @@ class ProductForm extends Component {
       taxType: null,
       inStock: null,
       isAmountPickerActive: false,
-      isConfirmationActive: false
+      isConfirmationActive: false,
+      isAddProductLoaded: false
     };
   }
 
@@ -26,7 +29,7 @@ class ProductForm extends Component {
   componentDidUpdate = oldProps => {
     const newProps = this.props;
     if (oldProps.product !== newProps.product) {
-      this.setState({ ...newProps.product });
+      this.setState({ ...newProps.product, isAddProductLoaded: false });
     }
   };
 
@@ -66,6 +69,10 @@ class ProductForm extends Component {
 
   closeConfirmation = () => {
     this.setState({ isConfirmationActive: false });
+  };
+
+  loadAddProduct = () => {
+    this.setState({ isAddProductLoaded: true });
   };
 
   increaseProductStock = quantity => {
@@ -110,8 +117,6 @@ class ProductForm extends Component {
       inStock
     };
 
-    console.log(updatedProduct, validateProduct(updatedProduct));
-
     if (validateProduct(updatedProduct) !== 0) {
       return;
     }
@@ -140,12 +145,13 @@ class ProductForm extends Component {
       taxType === null ||
       inStock === null
     ) {
-      return (
-        <div className="ProductForm">
-          <h2>Select a product to edit</h2>
-        </div>
-      );
+      return <BlankProductForm />;
     }
+
+    if (this.state.isAddProductLoaded) {
+      return <AddProductForm productWasAdded={this.props.productHasUpdated} />;
+    }
+
     return (
       <div className="ProductForm">
         <h2>{name}</h2>
@@ -172,6 +178,10 @@ class ProductForm extends Component {
           </button>
         </div>
 
+        <button onClick={this.loadAddProduct} className="AddProduct">
+          Add product
+        </button>
+
         {this.state.isConfirmationActive ? (
           <ConfirmationModal
             handleClose={this.closeConfirmation}
@@ -195,4 +205,4 @@ class ProductForm extends Component {
   }
 }
 
-export default ProductForm;
+export default EditProductForm;
