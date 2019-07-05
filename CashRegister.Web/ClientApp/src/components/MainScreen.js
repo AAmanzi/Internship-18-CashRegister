@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Navbar from "./Navbar";
 import ReceiptForm from "./ReceiptForm";
 import Products from "./Products";
-import ProductAmountPicker from "./ProductAmountPicker";
+import AmountPickerModal from "./AmountPickerModal";
 
 class MainScreen extends Component {
   constructor(props) {
@@ -15,12 +15,12 @@ class MainScreen extends Component {
     };
   }
 
-  closeAmountPicker = () => {
-    this.setState({ isAmountPickerActive: false });
-  };
-
   displayAmountPicker = product => {
     this.setState({ isAmountPickerActive: true, selectedProduct: product });
+  };
+
+  closeAmountPicker = () => {
+    this.setState({ isAmountPickerActive: false });
   };
 
   addProduct = quantity => {
@@ -66,7 +66,7 @@ class MainScreen extends Component {
         </div>
 
         {this.state.isAmountPickerActive ? (
-          <ProductAmountPicker
+          <AmountPickerModal
             productName={this.state.selectedProduct.name}
             handleClose={this.closeAmountPicker}
             handleApply={this.addProduct}

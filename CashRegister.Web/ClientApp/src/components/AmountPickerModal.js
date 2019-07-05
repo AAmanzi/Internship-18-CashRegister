@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class ProductAmountPicker extends Component {
+class AmountPickerModal extends Component {
   constructor(props) {
     super(props);
 
@@ -39,7 +39,7 @@ class ProductAmountPicker extends Component {
             Cancel
           </button>
           <button
-            className="CloseButton"
+            className="SaveButton"
             onClick={() => this.props.handleApply(this.state.amount)}
           >
             Save
@@ -50,4 +50,4 @@ class ProductAmountPicker extends Component {
   }
 }
 
-export default ProductAmountPicker;
+export default AmountPickerModal;

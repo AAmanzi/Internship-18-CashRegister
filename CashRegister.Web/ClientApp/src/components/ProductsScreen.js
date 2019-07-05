@@ -8,7 +8,8 @@ class ProductsScreen extends Component {
     super(props);
 
     this.state = {
-      selectedProduct: null
+      selectedProduct: null,
+      hasProductUpdated: false
     };
   }
 
@@ -20,8 +21,15 @@ class ProductsScreen extends Component {
     this.setState({ selectedProduct: product });
   };
 
+  handleHasProductUpdated = () => {
+    this.setState({ hasProductUpdated: true });
+  };
+
+  handleHaveProductsRefreshed = () => {
+    this.setState({ hasProductUpdated: false});
+  };
+
   render() {
-    const { selectedProduct } = this.state;
     return (
       <div
         className="ScreenContainer"
@@ -33,10 +41,17 @@ class ProductsScreen extends Component {
       >
         <Navbar />
         <div className="MainScreen">
-          <Products handleProductClick={this.selectProduct} />
+          <Products
+            hasProductUpdated={this.state.hasProductUpdated}
+            productsHaveRefreshed={this.handleHaveProductsRefreshed}
+            handleProductClick={this.selectProduct}
+          />
 
-          {selectedProduct !== null ? (
-            <ProductForm product={selectedProduct} />
+          {this.state.selectedProduct !== null ? (
+            <ProductForm
+              product={this.state.selectedProduct}
+              productHasUpdated={this.handleHasProductUpdated}
+            />
           ) : (
             <div className="ProductForm">
               <h2>Select a product to edit</h2>

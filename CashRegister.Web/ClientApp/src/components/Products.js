@@ -8,14 +8,29 @@ class Products extends Component {
     super(props);
 
     this.state = {
+      hiddenProductFilter: "",
       productFilter: "",
       products: [],
       focused: null
     };
   }
 
+  componentDidUpdate = oldProps => {
+    const newProps = this.props;
+    if (
+      oldProps.hasProductUpdated !== newProps.hasProductUpdated &&
+      newProps.hasProductUpdated === true
+    ) {
+      this.refreshFilter();
+      this.props.productsHaveRefreshed();
+    }
+  };
+
   handleFilterChange = event => {
-    this.setState({ productFilter: event.target.value });
+    this.setState({
+      productFilter: event.target.value,
+      hiddenProductFilter: event.target.value
+    });
     this.debounceLoadProducts();
   };
 
@@ -24,6 +39,14 @@ class Products extends Component {
       this.setState({ productFilter: "", products, focused: -1 });
     });
   }, 300);
+
+  refreshFilter = () => {
+    this.setState(prevState  => {
+      const prevHiddenProductFilter = { ...prevState }.hiddenProductFilter;
+      return { productFilter: prevHiddenProductFilter };
+    });
+    this.debounceLoadProducts();
+  };
 
   handleKeyPress = event => {
     const { focused } = this.state;
