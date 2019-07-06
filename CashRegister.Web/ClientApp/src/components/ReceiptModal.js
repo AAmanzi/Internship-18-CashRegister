@@ -93,7 +93,7 @@ class ReceiptModal extends Component {
 
       case "Enter":
         const printButton = document.querySelector(".PrintButton--button");
-        console.log(printButton)
+        
         if (printButton === null || printButton === undefined) {
           return undefined;
         }
