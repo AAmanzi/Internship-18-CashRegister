@@ -77,7 +77,12 @@ class ReceiptModal extends Component {
     getReceiptById(this.props.receiptId).then(receipt => {
       getReceiptProductsByReceiptId(receipt.id).then(receiptProducts => {
         const formattedReceiptProducts = receiptProducts.map(rp => {
-          return { ...rp.product, quantity: rp.quantity };
+          return {
+            name: rp.product.name,
+            price: rp.unitPrice,
+            quantity: rp.quantity,
+            taxType: rp.taxType
+          };
         });
         this.setState({ receipt, receiptProducts: formattedReceiptProducts });
       });
@@ -93,7 +98,7 @@ class ReceiptModal extends Component {
 
       case "Enter":
         const printButton = document.querySelector(".PrintButton--button");
-        
+
         if (printButton === null || printButton === undefined) {
           return undefined;
         }
@@ -120,7 +125,11 @@ class ReceiptModal extends Component {
         <ReactToPrint
           trigger={() => (
             <div className="PrintButton">
-              <button className="PrintButton--button" autoFocus onClick={this.props.handleClose}>
+              <button
+                className="PrintButton--button"
+                autoFocus
+                onClick={this.props.handleClose}
+              >
                 Print receipt!
               </button>
             </div>
