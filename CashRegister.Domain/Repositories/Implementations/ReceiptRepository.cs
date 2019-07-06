@@ -25,6 +25,7 @@ namespace CashRegister.Domain.Repositories.Implementations
         {
             return _context.Receipts
                 .Where(receipt => DateTime.Compare(dateOfReceipt, receipt.CreatedOn.Date) == 0)
+                .OrderBy(receipt => receipt.CreatedOn)
                 .ToList();
         }
 

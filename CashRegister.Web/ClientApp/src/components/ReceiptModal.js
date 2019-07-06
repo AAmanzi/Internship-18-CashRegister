@@ -18,6 +18,9 @@ class Content extends Component {
 
     return (
       <div className="ModalCover">
+        <button className="ButtonCloseModal" onClick={this.props.handleClose}>
+          X
+        </button>
         <div className="ReceiptModal">
           <div className="ReceiptElement">
             <span>{`Created on: ${new Date(
@@ -61,7 +64,7 @@ class Content extends Component {
   }
 }
 
-class ReceiptModal extends React.Component {
+class ReceiptModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -79,6 +82,26 @@ class ReceiptModal extends React.Component {
         this.setState({ receipt, receiptProducts: formattedReceiptProducts });
       });
     });
+
+    // this.receiptModal.focus();
+  };
+
+  handleKeyPress = event => {
+    switch (event.key) {
+      case "Escape":
+        return this.props.handleClose();
+
+      case "Enter":
+        const printButton = document.querySelector(".PrintButton--button");
+        console.log(printButton)
+        if (printButton === null || printButton === undefined) {
+          return undefined;
+        }
+        return printButton.focus();
+
+      default:
+        return undefined;
+    }
   };
 
   render() {
@@ -87,11 +110,17 @@ class ReceiptModal extends React.Component {
     if (receipt === null || receiptProducts.length === 0)
       return <div>Loading...</div>;
     return (
-      <div>
+      <div
+        ref={button => {
+          button && button.focus();
+        }}
+        onKeyDown={this.handleKeyPress}
+        tabIndex="0"
+      >
         <ReactToPrint
           trigger={() => (
             <div className="PrintButton">
-              <button autoFocus onClick={this.props.handleClose}>
+              <button className="PrintButton--button" autoFocus onClick={this.props.handleClose}>
                 Print receipt!
               </button>
             </div>
@@ -102,6 +131,7 @@ class ReceiptModal extends React.Component {
           ref={el => (this.componentRef = el)}
           receipt={receipt}
           receiptProducts={receiptProducts}
+          handleClose={this.props.handleClose}
         />
       </div>
     );

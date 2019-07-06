@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CashRegister.Data.Entities.Enums;
 
 namespace CashRegister.Data.Entities.Models
 {
@@ -8,6 +9,7 @@ namespace CashRegister.Data.Entities.Models
     {
         public int Quantity { get; set; }
         public double UnitPrice { get; set; }
+        public TaxType TaxType { get; set; }
 
         public int ProductId { get; set; }
         public Product Product { get; set; }

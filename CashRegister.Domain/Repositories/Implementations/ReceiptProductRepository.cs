@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using CashRegister.Data.Entities;
 using CashRegister.Data.Entities.Enums;
 using CashRegister.Data.Entities.Models;
@@ -50,6 +49,7 @@ namespace CashRegister.Domain.Repositories.Implementations
             }
 
             receiptProductToAdd.UnitPrice = product.Price;
+            receiptProductToAdd.TaxType = product.TaxType;
 
             receipt.PriceSubtotal += Math.Round(
                 receiptProductToAdd.UnitPrice * receiptProductToAdd.Quantity, 
@@ -103,6 +103,7 @@ namespace CashRegister.Domain.Repositories.Implementations
                 }
 
                 receiptProduct.UnitPrice = product.Price;
+                receiptProduct.TaxType = product.TaxType;
 
                 receipt.PriceSubtotal += Math.Round(
                     receiptProduct.UnitPrice * receiptProduct.Quantity, 

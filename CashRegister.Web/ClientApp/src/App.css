@@ -174,7 +174,8 @@ nav {
   width: 500px;
 }
 
-.ProductPanel, .ReceiptPanel {
+.ProductPanel,
+.ReceiptPanel {
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -198,7 +199,7 @@ nav {
   align-content: center;
 }
 
-.ReceiptCard{
+.ReceiptCard {
   width: 33%;
 }
 
@@ -287,4 +288,11 @@ nav {
 
 .Receipts:focus {
   outline: none;
+}
+
+.ButtonCloseModal {
+  position: absolute;
+  top: 100px;
+  left: 30%;
+  padding: 2px 8px;
 }
