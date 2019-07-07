@@ -50,7 +50,15 @@ namespace CashRegister.Domain.Repositories.Implementations
 
         public Cashier GetCashierById(int id)
         {
-            return _context.Cashiers.Find(id);
+            var cashier = _context.Cashiers.Find(id);
+        
+            return new Cashier
+            {
+                Id = cashier.Id,
+                FirstName = cashier.FirstName,
+                LastName = cashier.LastName,
+                Username = cashier.Username
+            };
         }
 
         public Cashier ValidateCashier(string username, string password)

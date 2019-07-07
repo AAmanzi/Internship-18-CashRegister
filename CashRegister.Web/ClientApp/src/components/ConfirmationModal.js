@@ -13,7 +13,7 @@ class ConfirmationModal extends Component {
 
   render() {
     return (
-      <div className="ModalCover" onKeyDown={this.handleKeyPress} tabIndex="0">
+      <div className="ModalCover ModalCoverImportant" onKeyDown={this.handleKeyPress} tabIndex="0">
         <div className="ConfirmationModal">
           <span>Are you sure?</span>
           <div className="ConfirmButtons">

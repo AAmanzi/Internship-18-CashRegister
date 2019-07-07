@@ -2,11 +2,18 @@ import React, { Component } from "react";
 import ReactToPrint from "react-to-print";
 import { getReceiptById } from "../services/receipt";
 import { getReceiptProductsByReceiptId } from "../services/receiptProduct";
+import { getCashierById } from "../services/cashier";
+import { getCashRegisterById } from "../services/cashRegister";
 import ReceiptFormProduct from "./ReceiptFormProduct";
 
 class Content extends Component {
   render() {
-    const { receipt, receiptProducts } = this.props;
+    const {
+      receipt,
+      receiptProducts,
+      cashierFullName,
+      cashRegisterName
+    } = this.props;
     const dateOptions = {
       weekday: "long",
       year: "numeric",
@@ -17,46 +24,50 @@ class Content extends Component {
     };
 
     return (
-      <div className="ModalCover">
-        <button className="ButtonCloseModal" onClick={this.props.handleClose}>
-          X
-        </button>
-        <div className="ReceiptModal">
+      <div className="ReceiptModal">
+        <div className="ReceiptElement">
+          <span>{`Cashier: ${cashierFullName}`}</span>
+        </div>
+
+        <div className="ReceiptElement">
+          <span>{`Cash register: ${cashRegisterName}`}</span>
+        </div>
+
+        <div className="ReceiptElement">
+          <span>{`Created on: ${new Date(receipt.createdOn).toLocaleDateString(
+            "en-EU",
+            dateOptions
+          )}`}</span>
+        </div>
+
+        <div className="ReceiptElement">
+          <span>{`Receipt No: ${receipt.id}`}</span>
+        </div>
+
+        <ul className="GroceryItems">
+          {receiptProducts.map((item, index) => (
+            <ReceiptFormProduct key={index} product={item} />
+          ))}
+        </ul>
+        <div className="ReceiptInfo">
           <div className="ReceiptElement">
-            <span>{`Created on: ${new Date(
-              receipt.createdOn
-            ).toLocaleDateString("en-EU", dateOptions)}`}</span>
+            <h2>Subtotal</h2>
+            <h3>{receipt.priceSubtotal.toFixed(2)}</h3>
           </div>
 
           <div className="ReceiptElement">
-            <span>{`Receipt No: ${receipt.id}`}</span>
+            <h3>Excise tax:</h3>
+            <h4>{receipt.totalExciseTax.toFixed(2)}</h4>
           </div>
 
-          <ul className="GroceryItems">
-            {receiptProducts.map((item, index) => (
-              <ReceiptFormProduct key={index} product={item} />
-            ))}
-          </ul>
-          <div className="ReceiptInfo">
-            <div className="ReceiptElement">
-              <h2>Subtotal</h2>
-              <h3>{receipt.priceSubtotal.toFixed(2)}</h3>
-            </div>
+          <div className="ReceiptElement">
+            <h3>Direct tax:</h3>
+            <h4>{receipt.totalDirectTax.toFixed(2)}</h4>
+          </div>
 
-            <div className="ReceiptElement">
-              <h3>Excise tax:</h3>
-              <h4>{receipt.totalExciseTax.toFixed(2)}</h4>
-            </div>
-
-            <div className="ReceiptElement">
-              <h3>Direct tax:</h3>
-              <h4>{receipt.totalDirectTax.toFixed(2)}</h4>
-            </div>
-
-            <div className="ReceiptElement">
-              <h3>Total</h3>
-              <h4>{receipt.priceTotal.toFixed(2)}</h4>
-            </div>
+          <div className="ReceiptElement">
+            <h3>Total</h3>
+            <h4>{receipt.priceTotal.toFixed(2)}</h4>
           </div>
         </div>
       </div>
@@ -69,7 +80,9 @@ class ReceiptModal extends Component {
     super(props);
     this.state = {
       receipt: null,
-      receiptProducts: []
+      receiptProducts: [],
+      cashierFullName: "",
+      cashRegisterName: ""
     };
   }
 
@@ -86,9 +99,17 @@ class ReceiptModal extends Component {
         });
         this.setState({ receipt, receiptProducts: formattedReceiptProducts });
       });
-    });
 
-    // this.receiptModal.focus();
+      getCashierById(receipt.cashierId).then(cashier =>
+        this.setState({
+          cashierFullName: `${cashier.firstName} ${cashier.lastName}`
+        })
+      );
+
+      getCashRegisterById(receipt.cashRegisterId).then(cashRegister =>
+        this.setState({ cashRegisterName: cashRegister.name })
+      );
+    });
   };
 
   handleKeyPress = event => {
@@ -110,10 +131,21 @@ class ReceiptModal extends Component {
   };
 
   render() {
-    const { receipt, receiptProducts } = this.state;
+    const {
+      receipt,
+      receiptProducts,
+      cashierFullName,
+      cashRegisterName
+    } = this.state;
 
-    if (receipt === null || receiptProducts.length === 0)
+    if (
+      receipt === null ||
+      receiptProducts.length === 0 ||
+      cashierFullName === "" ||
+      cashRegisterName === ""
+    )
       return <div>Loading...</div>;
+
     return (
       <div
         ref={button => {
@@ -122,26 +154,32 @@ class ReceiptModal extends Component {
         onKeyDown={this.handleKeyPress}
         tabIndex="0"
       >
-        <ReactToPrint
-          trigger={() => (
-            <div className="PrintButton">
-              <button
-                className="PrintButton--button"
-                autoFocus
-                onClick={this.props.handleClose}
-              >
-                Print receipt!
-              </button>
-            </div>
-          )}
-          content={() => this.componentRef}
-        />
-        <Content
-          ref={el => (this.componentRef = el)}
-          receipt={receipt}
-          receiptProducts={receiptProducts}
-          handleClose={this.props.handleClose}
-        />
+        <div className="ModalCover">
+          <button className="ButtonCloseModal" onClick={this.props.handleClose}>
+            X
+          </button>
+          <ReactToPrint
+            trigger={() => (
+              <div className="PrintButton">
+                <button
+                  className="PrintButton--button"
+                  autoFocus
+                  onClick={this.props.handleClose}
+                >
+                  Print receipt!
+                </button>
+              </div>
+            )}
+            content={() => this.componentRef}
+          />
+          <Content
+            ref={el => (this.componentRef = el)}
+            receipt={receipt}
+            receiptProducts={receiptProducts}
+            cashierFullName={cashierFullName}
+            cashRegisterName={cashRegisterName}
+          />
+        </div>
       </div>
     );
   }

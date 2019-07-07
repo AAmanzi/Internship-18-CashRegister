@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { validateCredentials } from "../utils";
+import { validateCredentials, getCredentials } from "../utils";
 import { addReceipt } from "../services/receipt";
 import { addReceiptProductList } from "../services/receiptProduct";
 import ReceiptFormProduct from "./ReceiptFormProduct";
@@ -57,24 +57,27 @@ class ReceiptForm extends Component {
     }
     if (this.props.groceryItems.length === 0) return;
 
+    const credentials = getCredentials();
     const createdOn = new Date();
 
-    addReceipt({ createdOn, cashRegisterId: 1, cashierId: 1 }).then(
-      receiptId => {
-        const receiptProductsToAdd = this.props.groceryItems.map(
-          receiptProduct => {
-            return {
-              ...receiptProduct,
-              receiptId,
-              productId: receiptProduct.id
-            };
-          }
-        );
-        addReceiptProductList(receiptProductsToAdd).then(() =>
-          this.setState({ newReceiptId: receiptId })
-        );
-      }
-    );
+    addReceipt({
+      createdOn,
+      cashRegisterId: credentials.cashRegisterId,
+      cashierId: credentials.cashierId
+    }).then(receiptId => {
+      const receiptProductsToAdd = this.props.groceryItems.map(
+        receiptProduct => {
+          return {
+            ...receiptProduct,
+            receiptId,
+            productId: receiptProduct.id
+          };
+        }
+      );
+      addReceiptProductList(receiptProductsToAdd).then(() =>
+        this.setState({ newReceiptId: receiptId })
+      );
+    });
   };
 
   closeModal = () => {

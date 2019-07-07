@@ -249,6 +249,10 @@ nav {
   background-color: #453d3d77;
 }
 
+.ModalCoverImportant{
+  z-index: 500;
+}
+
 .ReceiptModal,
 .ConfirmationModal,
 .AmountPickerModal {

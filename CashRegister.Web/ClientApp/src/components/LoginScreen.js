@@ -34,6 +34,12 @@ class LoginScreen extends Component {
     this.setState({ cashRegisterId: event.target.value });
   };
 
+  handleKeyPress = event => {
+    if (event.key === "Enter") {
+      this.handleLogin();
+    }
+  };
+
   handleLogin = () => {
     if (this.state.cashRegisterId === "") {
       return this.setState({
@@ -47,9 +53,7 @@ class LoginScreen extends Component {
           LOGIN_STRING,
           JSON.stringify({
             cashierId: cashier.id,
-            cashRegisterId: parseInt(this.state.cashRegisterId, 10),
-            firstName: cashier.firstName,
-            lastName: cashier.lastName
+            cashRegisterId: parseInt(this.state.cashRegisterId, 10)
           })
         )
       )
@@ -58,29 +62,21 @@ class LoginScreen extends Component {
   };
 
   render() {
+    if (this.state.cashRegisters.length === 0) {
+      return (
+        <div>
+          You must setup at least one cash register in order for the application
+          to run as supposed
+        </div>
+      );
+    }
     return (
       <div className="LoginScreen">
         <div className="LoginError">{this.state.error}</div>
-        <div className="LoginFormItem">
-          <span>User Name</span>
-          <input
-            type="text"
-            value={this.state.username}
-            onChange={this.handleUsernameChange}
-          />
-        </div>
-
-        <div className="LoginFormItem">
-          <span>Password</span>
-          <input
-            type="password"
-            value={this.state.password}
-            onChange={this.handlePasswordChange}
-          />
-        </div>
 
         <div className="LoginFormItem">
           <select
+            autoFocus
             value={this.state.cashRegisterId}
             onChange={this.handleCashRegisterChange}
           >
@@ -91,6 +87,26 @@ class LoginScreen extends Component {
               </option>
             ))}
           </select>
+        </div>
+
+        <div className="LoginFormItem">
+          <span>User Name</span>
+          <input
+            type="text"
+            value={this.state.username}
+            onChange={this.handleUsernameChange}
+            onKeyPress={this.handleKeyPress}
+          />
+        </div>
+
+        <div className="LoginFormItem">
+          <span>Password</span>
+          <input
+            type="password"
+            value={this.state.password}
+            onChange={this.handlePasswordChange}
+            onKeyPress={this.handleKeyPress}
+          />
         </div>
 
         <button className="LoginButton" onClick={this.handleLogin}>

@@ -61,3 +61,7 @@ export const validateCredentials = () => {
 
   return true;
 };
+
+export const getCredentials = () => {
+  return JSON.parse(window.localStorage.getItem(LOGIN_STRING));
+};
