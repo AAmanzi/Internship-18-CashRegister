@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { debounce } from "../utils";
+import { debounce, validateCredentials } from "../utils";
 import { getFilteredProducts } from "../services/product";
 import ProductCard from "./ProductCard";
 
@@ -35,13 +35,16 @@ class Products extends Component {
   };
 
   debounceLoadProducts = debounce(() => {
+    if (!validateCredentials()) {
+      return;
+    }
     getFilteredProducts(this.state.productFilter).then(products => {
       this.setState({ productFilter: "", products, focused: -1 });
     });
   }, 300);
 
   refreshFilter = () => {
-    this.setState(prevState  => {
+    this.setState(prevState => {
       const prevHiddenProductFilter = { ...prevState }.hiddenProductFilter;
       return { productFilter: prevHiddenProductFilter };
     });

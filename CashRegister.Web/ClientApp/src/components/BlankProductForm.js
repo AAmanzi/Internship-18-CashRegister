@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { validateCredentials } from "../utils";
 import AddProductForm from "./AddProductForm";
 
 class BlankProductForm extends Component {
@@ -11,6 +12,9 @@ class BlankProductForm extends Component {
   }
 
   loadAddProduct = () => {
+    if (!validateCredentials()) {
+      return;
+    }
     this.setState({ isAddProductLoaded: true });
   };
 

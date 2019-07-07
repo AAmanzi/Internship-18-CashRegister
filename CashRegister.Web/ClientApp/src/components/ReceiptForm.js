@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { validateCredentials } from "../utils";
 import { addReceipt } from "../services/receipt";
 import { addReceiptProductList } from "../services/receiptProduct";
 import ReceiptFormProduct from "./ReceiptFormProduct";
@@ -51,6 +52,9 @@ class ReceiptForm extends Component {
   };
 
   submitReceipt = () => {
+    if (!validateCredentials()) {
+      return;
+    }
     if (this.props.groceryItems.length === 0) return;
 
     const createdOn = new Date();
@@ -100,7 +104,7 @@ class ReceiptForm extends Component {
 
         <button className="PayButton" onClick={this.displayConfirmation}>
           Pay
-        </button>  
+        </button>
 
         {this.state.isConfirmationActive ? (
           <ConfirmationModal

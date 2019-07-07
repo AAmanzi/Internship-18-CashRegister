@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { editProduct } from "../services/product";
-import { validateProduct } from "../utils";
+import { validateProduct, validateCredentials } from "../utils";
 import AmountPickerModal from "./AmountPickerModal";
 import ConfirmationModal from "./ConfirmationModal";
 import BlankProductForm from "./BlankProductForm";
@@ -23,6 +23,8 @@ class EditProductForm extends Component {
   }
 
   componentDidMount = () => {
+    validateCredentials();
+
     this.setState({ ...this.props.product });
   };
 
@@ -81,7 +83,7 @@ class EditProductForm extends Component {
   };
 
   increaseProductStock = quantity => {
-    if (quantity <= 0) {
+    if (quantity <= 0 || !validateCredentials()) {
       return;
     }
 
@@ -122,7 +124,7 @@ class EditProductForm extends Component {
       inStock
     };
 
-    if (validateProduct(updatedProduct) !== 0) {
+    if (validateProduct(updatedProduct) !== 0 || !validateCredentials()) {
       return;
     }
 

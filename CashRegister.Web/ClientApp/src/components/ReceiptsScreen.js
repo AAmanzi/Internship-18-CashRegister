@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { LOGIN_STRING } from "../constants";
+import { validateCredentials } from "../utils";
 import Navbar from "./Navbar";
 import Receipts from "./Receipts";
 
@@ -13,13 +13,7 @@ class ReceiptsScreen extends Component {
   }
 
   componentDidMount = () => {
-    const credentials = JSON.parse(window.localStorage.getItem(LOGIN_STRING));
-
-    if (credentials === null || credentials === undefined) {
-      window.location.href = "/login";
-    }
-
-    this.setState({ credentials });
+    validateCredentials();
   };
 
   render() {

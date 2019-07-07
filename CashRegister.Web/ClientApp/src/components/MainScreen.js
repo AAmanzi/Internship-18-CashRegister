@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { LOGIN_STRING } from "../constants";
+import { validateCredentials } from "../utils";
 import Navbar from "./Navbar";
 import ReceiptForm from "./ReceiptForm";
 import Products from "./Products";
@@ -12,19 +12,12 @@ class MainScreen extends Component {
     this.state = {
       isAmountPickerActive: false,
       selectedProduct: null,
-      products: [],
-      credentials: null
+      products: []
     };
   }
 
   componentDidMount = () => {
-    const credentials = JSON.parse(window.localStorage.getItem(LOGIN_STRING));
-
-    if (credentials === null || credentials === undefined) {
-      window.location.href = "/login";
-    }
-
-    this.setState({ credentials });
+    validateCredentials();
   };
 
   displayAmountPicker = product => {
@@ -36,6 +29,10 @@ class MainScreen extends Component {
   };
 
   addProduct = quantity => {
+    if (!validateCredentials()) {
+      return;
+    }
+
     if (quantity <= 0) {
       return this.closeAmountPicker();
     }

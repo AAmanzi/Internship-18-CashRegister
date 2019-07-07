@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { LOGIN_STRING } from "../constants";
+import { validateCredentials } from "../utils";
 import Navbar from "./Navbar";
 import Products from "./Products";
 import EditProductForm from "./EditProductForm";
@@ -17,13 +17,7 @@ class ProductsScreen extends Component {
   }
 
   componentDidMount = () => {
-    const credentials = JSON.parse(window.localStorage.getItem(LOGIN_STRING));
-
-    if (credentials === null || credentials === undefined) {
-      window.location.href = "/login";
-    }
-
-    this.setState({ credentials });
+    validateCredentials();
 
     this.screenContainer.focus();
   };

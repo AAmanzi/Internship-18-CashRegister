@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { formatDate } from "../utils";
+import { formatDate, validateCredentials } from "../utils";
 import { getFilteredReceipts } from "../services/receipt";
 import ReceiptCard from "./ReceiptCard";
 import ReceiptModal from "./ReceiptModal";
@@ -11,28 +11,14 @@ class Receipts extends Component {
     this.state = {
       receiptFilter: "",
       receipts: [],
-      focused: null,
       selectedReceiptId: null
     };
   }
 
   componentDidMount = () => {
-    const dateOptions = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit"
-    };
-    const currentDate = new Date();
-    const currentDateString = currentDate.toLocaleDateString(
-      "en-EU",
-      dateOptions
-    );
-    const formattedCurrentDateString = formatDate(currentDate);
+    const formattedCurrentDateString = formatDate(new Date());
 
-    getFilteredReceipts(currentDateString).then(receipts => {
+    getFilteredReceipts(formattedCurrentDateString).then(receipts => {
       this.setState({
         receiptFilter: formattedCurrentDateString,
         receipts
@@ -41,9 +27,16 @@ class Receipts extends Component {
   };
 
   handleFilterChange = event => {
-    const dateOfReceipt = event.target.value;
-    getFilteredReceipts(dateOfReceipt).then(receipts => {
-      this.setState({ receiptFilter: dateOfReceipt, receipts, focused: -1 });
+    this.setState({ receiptFilter: event.target.value });
+  };
+
+  applyFilter = () => {
+    if (!validateCredentials()) {
+      return;
+    }
+
+    getFilteredReceipts(this.state.receiptFilter).then(receipts => {
+      this.setState({ receipts });
     });
   };
 
@@ -75,6 +68,9 @@ class Receipts extends Component {
               this.searchInput = input;
             }}
           />
+          <button className="FilterButton" onClick={this.applyFilter}>
+            Search
+          </button>
         </div>
 
         <div className="ReceiptPanel">

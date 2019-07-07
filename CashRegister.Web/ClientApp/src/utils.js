@@ -1,3 +1,5 @@
+import { LOGIN_STRING } from "./constants";
+
 export const debounce = require("lodash.debounce");
 
 export const isNullOrWhitespace = input => {
@@ -47,4 +49,15 @@ export const validateProduct = product => {
   }
 
   return 0;
+};
+
+export const validateCredentials = () => {
+  const credentials = JSON.parse(window.localStorage.getItem(LOGIN_STRING));
+
+  if (credentials === null || credentials === undefined) {
+    window.location.href = "/login";
+    return false;
+  }
+
+  return true;
 };
