@@ -7,3 +7,5 @@ export const CONTROLLER = {
   RECEIPT: "receipts",
   RECEIPT_PRODUCT: "receipt-products"
 };
+
+export const LOGIN_STRING = "cash-register-logged-in"

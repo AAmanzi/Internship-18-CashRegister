@@ -15,9 +15,6 @@ class ConfirmationModal extends Component {
     return (
       <div className="ModalCover" onKeyDown={this.handleKeyPress} tabIndex="0">
         <div className="ConfirmationModal">
-          <button className="CloseButton" onClick={this.props.handleClose}>
-            Close
-          </button>
           <span>Are you sure?</span>
           <div className="ConfirmButtons">
             <button

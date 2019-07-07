@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { LOGIN_STRING } from "../constants";
 import Navbar from "./Navbar";
 import Products from "./Products";
 import EditProductForm from "./EditProductForm";
@@ -10,11 +11,20 @@ class ProductsScreen extends Component {
 
     this.state = {
       selectedProduct: null,
-      hasProductUpdated: false
+      hasProductUpdated: false,
+      credentials: null
     };
   }
 
   componentDidMount = () => {
+    const credentials = JSON.parse(window.localStorage.getItem(LOGIN_STRING));
+
+    if (credentials === null || credentials === undefined) {
+      window.location.href = "/login";
+    }
+
+    this.setState({ credentials });
+
     this.screenContainer.focus();
   };
 

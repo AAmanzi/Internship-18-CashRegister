@@ -9,6 +9,9 @@ namespace CashRegister.Domain.Repositories.Interfaces
     {
         List<Cashier> GetAllCashiers();
 
+        bool AddCashier(Cashier toAdd);
+
         Cashier GetCashierById(int id);
+        Cashier ValidateCashier(string username, string password);
     }
 }

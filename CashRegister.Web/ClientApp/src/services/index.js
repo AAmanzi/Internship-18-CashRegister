@@ -34,3 +34,9 @@ export const edit = (controller, data) => {
     ...data
   });
 };
+
+export const validateUser = (controller, data) => {
+  return axios.post(`${API_ROUTE}/${controller}/validate-user`, {
+    ...data
+  });
+};

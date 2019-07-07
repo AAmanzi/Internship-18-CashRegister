@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { LOGIN_STRING } from "../constants";
 import Navbar from "./Navbar";
 import ReceiptForm from "./ReceiptForm";
 import Products from "./Products";
@@ -11,9 +12,20 @@ class MainScreen extends Component {
     this.state = {
       isAmountPickerActive: false,
       selectedProduct: null,
-      products: []
+      products: [],
+      credentials: null
     };
   }
+
+  componentDidMount = () => {
+    const credentials = JSON.parse(window.localStorage.getItem(LOGIN_STRING));
+
+    if (credentials === null || credentials === undefined) {
+      window.location.href = "/login";
+    }
+
+    this.setState({ credentials });
+  };
 
   displayAmountPicker = product => {
     this.setState({ isAmountPickerActive: true, selectedProduct: product });
