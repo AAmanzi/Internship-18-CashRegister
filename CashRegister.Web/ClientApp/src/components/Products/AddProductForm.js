@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { addProduct } from "../services/product";
-import { validateProduct } from "../utils";
-import ConfirmationModal from "./ConfirmationModal";
+import { addProduct } from "../../services/product";
+import { validateProduct } from "../../utils";
+import ConfirmationModal from "../ConfirmationModal";
 
 class AddProductForm extends Component {
   constructor(props) {

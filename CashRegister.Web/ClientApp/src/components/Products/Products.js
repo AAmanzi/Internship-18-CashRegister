@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { debounce, validateCredentials } from "../utils";
-import { getFilteredProducts } from "../services/product";
+import { debounce, validateCredentials } from "../../utils";
+import { getFilteredProducts } from "../../services/product";
 import ProductCard from "./ProductCard";
 
 class Products extends Component {

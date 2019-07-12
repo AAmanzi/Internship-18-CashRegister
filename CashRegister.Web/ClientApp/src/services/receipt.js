@@ -1,6 +1,7 @@
 import * as api from "./index";
 import { CONTROLLER } from "../constants";
 
+//TODO implement getAllReceipts o filters
 export const getAllReceipts = async () => {
   return api.getAll(CONTROLLER.RECEIPT).then(response => response.data);
 };

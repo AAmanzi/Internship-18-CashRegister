@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { validateCredentials } from "../utils";
 import Navbar from "./Navbar";
-import ReceiptForm from "./ReceiptForm";
-import Products from "./Products";
+import ReceiptForm from "./Receipts/ReceiptForm";
+import Products from "./Products/Products";
 import AmountPickerModal from "./AmountPickerModal";
 
 class MainScreen extends Component {

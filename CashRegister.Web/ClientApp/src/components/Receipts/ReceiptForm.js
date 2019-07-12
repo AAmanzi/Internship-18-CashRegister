@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { validateCredentials, getCredentials } from "../utils";
-import { addReceipt } from "../services/receipt";
-import { addReceiptProductList } from "../services/receiptProduct";
+import { validateCredentials, getCredentials } from "../../utils";
+import { addReceipt } from "../../services/receipt";
+import { addReceiptProductList } from "../../services/receiptProduct";
 import ReceiptFormProduct from "./ReceiptFormProduct";
 import ReceiptModal from "./ReceiptModal";
-import ConfirmationModal from "./ConfirmationModal";
+import ConfirmationModal from "../ConfirmationModal";
 
 class ReceiptForm extends Component {
   constructor(props) {

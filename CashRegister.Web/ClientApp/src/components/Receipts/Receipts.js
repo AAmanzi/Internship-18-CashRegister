@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { formatDate, validateCredentials } from "../utils";
-import { getFilteredReceipts } from "../services/receipt";
+import { formatDate, validateCredentials } from "../../utils";
+import { getFilteredReceipts } from "../../services/receipt";
 import ReceiptCard from "./ReceiptCard";
 import ReceiptModal from "./ReceiptModal";
 

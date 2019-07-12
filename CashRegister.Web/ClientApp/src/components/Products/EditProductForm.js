@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { editProduct } from "../services/product";
-import { validateProduct, validateCredentials } from "../utils";
-import AmountPickerModal from "./AmountPickerModal";
-import ConfirmationModal from "./ConfirmationModal";
+import { editProduct } from "../../services/product";
+import { validateProduct, validateCredentials } from "../../utils";
+import AmountPickerModal from "../AmountPickerModal";
+import ConfirmationModal from "../ConfirmationModal";
 import BlankProductForm from "./BlankProductForm";
 import AddProductForm from "./AddProductForm";
 

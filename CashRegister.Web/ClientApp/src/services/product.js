@@ -1,9 +1,9 @@
 import * as api from "./index";
 import { CONTROLLER } from "../constants";
 
-export const getAllProducts = async () => {
-  return api.getAll(CONTROLLER.PRODUCT).then(response => response.data);
-};
+// export const getAllProducts = async () => {
+//   return api.getAll(CONTROLLER.PRODUCT).then(response => response.data);
+// };
 
 export const getFilteredProducts = async filter => {
   return api

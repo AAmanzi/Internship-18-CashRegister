@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import ReactToPrint from "react-to-print";
-import { getReceiptById } from "../services/receipt";
-import { getReceiptProductsByReceiptId } from "../services/receiptProduct";
-import { getCashierById } from "../services/cashier";
-import { getCashRegisterById } from "../services/cashRegister";
+import { getReceiptById } from "../../services/receipt";
+import { getReceiptProductsByReceiptId } from "../../services/receiptProduct";
+import { getCashierById } from "../../services/cashier";
+import { getCashRegisterById } from "../../services/cashRegister";
 import ReceiptFormProduct from "./ReceiptFormProduct";
 
 class Content extends Component {

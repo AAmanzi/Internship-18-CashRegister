@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { validateCredentials } from "../utils";
+import { validateCredentials } from "../../utils";
 import AddProductForm from "./AddProductForm";
 
 class BlankProductForm extends Component {

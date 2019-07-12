@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { validateCredentials } from "../utils";
-import Navbar from "./Navbar";
+import { validateCredentials } from "../../utils";
+import Navbar from "../Navbar";
 import Receipts from "./Receipts";
 
 class ReceiptsScreen extends Component {

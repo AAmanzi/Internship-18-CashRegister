@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { validateCredentials } from "../utils";
-import Navbar from "./Navbar";
+import { validateCredentials } from "../../utils";
+import Navbar from "../Navbar";
 import Products from "./Products";
 import EditProductForm from "./EditProductForm";
 import BlankProductForm from "./BlankProductForm";
