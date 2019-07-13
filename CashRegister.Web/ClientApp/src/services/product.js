@@ -29,5 +29,3 @@ export const increaseProductStock = async (id, increaseBy) => {
     editProduct(product);
   })
 };
-
-// GetByBarcode fali, zasad ne vidim potrebu za njim

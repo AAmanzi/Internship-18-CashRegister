@@ -112,6 +112,13 @@ class ReceiptModal extends Component {
     });
   };
 
+  handleAfterPrint = () => {
+    const ProductFilterInput = document.querySelector(".ProductsFilterInput");
+    if (ProductFilterInput !== undefined && ProductFilterInput !== null) {
+      ProductFilterInput.focus();
+    }
+  }
+
   handleKeyPress = event => {
     switch (event.key) {
       case "Escape":
@@ -171,6 +178,7 @@ class ReceiptModal extends Component {
               </div>
             )}
             content={() => this.componentRef}
+            onAfterPrint={this.handleAfterPrint}
           />
           <Content
             ref={el => (this.componentRef = el)}

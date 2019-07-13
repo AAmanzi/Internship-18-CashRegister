@@ -1,7 +1,7 @@
 import * as api from "./index";
 import { CONTROLLER } from "../constants";
 
-//TODO implement getAllReceipts o filters
+//TODO Antina ideja za godinu/mjesec/dan
 export const getAllReceipts = async () => {
   return api.getAll(CONTROLLER.RECEIPT).then(response => response.data);
 };

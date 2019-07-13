@@ -92,6 +92,12 @@ class Products extends Component {
         return allProducts[focused - 1].focus();
 
       case "ArrowDown":
+        if (document.activeElement === document.querySelector(".ProductsFilterInput")
+          && allProducts.length !== 0) {
+          this.setState({ focused: 0 });
+          return allProducts[0].focus();
+        }
+
         if (focused === null) {
           return undefined;
         }

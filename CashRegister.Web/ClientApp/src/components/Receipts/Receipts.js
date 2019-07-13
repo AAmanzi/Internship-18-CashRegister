@@ -30,6 +30,12 @@ class Receipts extends Component {
     this.setState({ receiptFilter: event.target.value });
   };
 
+  applyIfEnter = event => {
+    if (event.key === "Enter") {
+      this.applyFilter();
+    }
+  }
+
   applyFilter = () => {
     if (!validateCredentials()) {
       return;
@@ -63,6 +69,7 @@ class Receipts extends Component {
             autoFocus
             type="date"
             onChange={this.handleFilterChange}
+            onKeyPress={this.applyIfEnter}
             value={this.state.receiptFilter}
             ref={input => {
               this.searchInput = input;
@@ -89,8 +96,8 @@ class Receipts extends Component {
             handleClose={this.closeReceiptModal}
           />
         ) : (
-          undefined
-        )}
+            undefined
+          )}
       </div>
     );
   }

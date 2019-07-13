@@ -20,12 +20,6 @@ namespace CashRegister.Web.Controllers
             _productRepository = productRepository;
         }
 
-        [HttpGet("all")]
-        public IActionResult GetAllProducts()
-        {
-            return Ok(_productRepository.GetAllProducts());
-        }
-
         [HttpGet("filtered")]
         public IActionResult GetFilteredProducts(string filter)
         {
@@ -67,19 +61,6 @@ namespace CashRegister.Web.Controllers
         public IActionResult GetProductById(int id)
         {
             var product = _productRepository.GetProductById(id);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(product);
-        }
-
-        [HttpGet("get-by-barcode")]
-        public IActionResult GetProductByBarcode(string barcode)
-        {
-            var product = _productRepository.GetProductByBarcode(barcode);
 
             if (product == null)
             {

@@ -18,6 +18,7 @@ class MainScreen extends Component {
 
   componentDidMount = () => {
     validateCredentials();
+    document.querySelector(".ProductsFilterInput").focus();
   };
 
   displayAmountPicker = product => {
@@ -60,6 +61,8 @@ class MainScreen extends Component {
         isAmountPickerActive: false
       };
     });
+
+    document.querySelector(".ProductsFilterInput").focus();
   };
 
   render() {
@@ -81,8 +84,8 @@ class MainScreen extends Component {
             handleApply={this.addProduct}
           />
         ) : (
-          undefined
-        )}
+            undefined
+          )}
       </div>
     );
   }

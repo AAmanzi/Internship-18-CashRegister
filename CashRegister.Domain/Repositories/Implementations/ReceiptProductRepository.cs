@@ -31,58 +31,6 @@ namespace CashRegister.Domain.Repositories.Implementations
                 .ToList();
         }
 
-        public bool AddReceiptProduct(ReceiptProduct receiptProductToAdd)
-        {
-            var receipt = _context.Receipts.Find(receiptProductToAdd.ReceiptId);
-            var product = _context.Products.Find(receiptProductToAdd.ProductId);
-            var alreadyExists =
-                _context.ReceiptProducts.Any(rp => rp.ReceiptId == receiptProductToAdd.ReceiptId && 
-                                                   rp.ProductId == receiptProductToAdd.ProductId);
-
-            if (alreadyExists || 
-                receiptProductToAdd.Quantity == 0 ||
-                receipt == null ||
-                product == null ||
-                product.InStock < receiptProductToAdd.Quantity)
-            {
-                return false;
-            }
-
-            receiptProductToAdd.UnitPrice = product.Price;
-            receiptProductToAdd.TaxType = product.TaxType;
-
-            receipt.PriceSubtotal += Math.Round(
-                receiptProductToAdd.UnitPrice * receiptProductToAdd.Quantity, 
-                2, 
-                MidpointRounding.AwayFromZero);
-
-            if (product.TaxType == TaxType.Excise)
-            {
-                receipt.TotalExciseTax += Math.Round(
-                    receiptProductToAdd.UnitPrice * 0.05 * receiptProductToAdd.Quantity, 
-                    2, 
-                    MidpointRounding.AwayFromZero);
-            }
-            else
-            {
-                receipt.TotalDirectTax += Math.Round(
-                    receiptProductToAdd.UnitPrice * 0.25 * receiptProductToAdd.Quantity, 
-                    2, 
-                    MidpointRounding.AwayFromZero);
-            }
-
-            receipt.PriceTotal = Math.Round(
-                receipt.PriceSubtotal + receipt.TotalExciseTax + receipt.TotalDirectTax, 
-                2, 
-                MidpointRounding.AwayFromZero);
-
-            product.InStock -= receiptProductToAdd.Quantity;
-
-            _context.ReceiptProducts.Add(receiptProductToAdd);
-            _context.SaveChanges();
-            return true;
-        }
-
         public bool AddReceiptProductList(List<ReceiptProduct> receiptProductsToAdd)
         {
             foreach (var receiptProduct in receiptProductsToAdd)
@@ -137,26 +85,6 @@ namespace CashRegister.Domain.Repositories.Implementations
 
             _context.SaveChanges();
             return true;
-        }
-
-        public bool DeleteReceiptProduct(Guid receiptId, int productId)
-        {
-            var receiptProductToDelete = _context.ReceiptProducts.Find(receiptId, productId);
-
-            if (receiptProductToDelete == null)
-            {
-                return false;
-            }
-
-            _context.ReceiptProducts.Remove(receiptProductToDelete);
-
-            _context.SaveChanges();
-            return true;
-        }
-
-        public ReceiptProduct GetReceiptProductByPrimaryKey(Guid receiptId, int productId)
-        {
-            return _context.ReceiptProducts.Find(receiptId, productId);
         }
     }
 }

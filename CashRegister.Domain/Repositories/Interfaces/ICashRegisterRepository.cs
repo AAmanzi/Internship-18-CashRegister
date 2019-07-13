@@ -8,6 +8,8 @@ namespace CashRegister.Domain.Repositories.Interfaces
     {
         List<Data.Entities.Models.CashRegister> GetAllCashRegisters();
 
+        void AddCashRegister(Data.Entities.Models.CashRegister cashRegisterToAdd);
+
         Data.Entities.Models.CashRegister GetCashRegisterById(int id);
     }
 }

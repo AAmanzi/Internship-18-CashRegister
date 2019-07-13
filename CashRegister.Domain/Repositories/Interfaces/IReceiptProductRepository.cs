@@ -6,13 +6,8 @@ namespace CashRegister.Domain.Repositories.Interfaces
 {
     public interface IReceiptProductRepository
     {
-        List<ReceiptProduct> GetAllReceiptProducts();
         List<ReceiptProduct> GetReceiptProductsByReceiptId(Guid receiptId);
 
-        bool AddReceiptProduct(ReceiptProduct receiptProductToAdd);
-        bool AddReceiptProductList(List<ReceiptProduct> receiptProducts);
-        bool DeleteReceiptProduct(Guid receiptId, int productId);
-
-        ReceiptProduct GetReceiptProductByPrimaryKey(Guid receiptId, int productId);
+        bool AddReceiptProductList(List<ReceiptProduct> receiptProductsToAdd);
     }
 }

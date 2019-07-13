@@ -25,18 +25,12 @@ namespace CashRegister.Web.Controllers
         {
             var wasAddSuccessful = _cashierRepository.AddCashier(toAdd);
 
-            if (wasAddSuccessful)
+            if(wasAddSuccessful)
             {
                 return Ok();
             }
 
             return Forbid();
-        }
-
-        [HttpGet("all")]
-        public IActionResult GetAllCashiers()
-        {
-            return Ok(_cashierRepository.GetAllCashiers());
         }
 
         [HttpGet("get-by-id")]

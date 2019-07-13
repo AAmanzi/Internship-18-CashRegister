@@ -19,7 +19,7 @@ class ProductsScreen extends Component {
   componentDidMount = () => {
     validateCredentials();
 
-    this.screenContainer.focus();
+    document.querySelector(".ProductsFilterInput").focus();
   };
 
   selectProduct = product => {

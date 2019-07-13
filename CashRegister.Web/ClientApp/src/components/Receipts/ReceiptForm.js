@@ -118,8 +118,8 @@ class ReceiptForm extends Component {
             }}
           />
         ) : (
-          undefined
-        )}
+            undefined
+          )}
 
         {this.state.newReceiptId !== "" ? (
           <ReceiptModal
@@ -127,8 +127,8 @@ class ReceiptForm extends Component {
             handleClose={this.closeModal}
           />
         ) : (
-          undefined
-        )}
+            undefined
+          )}
       </div>
     );
   }

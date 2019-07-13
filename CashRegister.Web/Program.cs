@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CashRegister.Data.Entities;
 using CashRegister.Domain.Repositories.Implementations;
+using CashRegister.Data.Entities.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

@@ -9,294 +9,311 @@
 */
 
 body {
-  color: #2d1a1b;
+    color: #2d1a1b;
 }
 
 button {
-  border-radius: 4px;
-  border: none;
-  background-color: #b65c5c;
-  color: #fff8f8;
+    border-radius: 4px;
+    border: none;
+    background-color: #b65c5c;
+    color: #fff8f8;
 }
 
 button:focus {
-  outline: none;
-  background-color: #2d1a1b;
+    outline: none;
+    background-color: #2d1a1b;
 }
 
 button:hover {
-  background-color: #d36f6f;
+    background-color: #d36f6f;
 }
 
 input {
-  background: #2d1a1b;
-  color: #fff8f8;
-  border: 3px solid #2d1a1b;
-  border-radius: 6px;
+    background: #2d1a1b;
+    color: #fff8f8;
+    border: 3px solid #2d1a1b;
+    border-radius: 6px;
 }
 
 input:focus {
-  outline: none;
-  border-color: #d3005d;
+    outline: none;
+    border-color: #d3005d;
 }
 
 select {
-  -webkit-appearance: button;
-  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-  -webkit-padding-end: 20px;
-  -webkit-padding-start: 2px;
-  -webkit-user-select: none;
-  background-image: url(http://i62.tinypic.com/15xvbd5.png),
-    -webkit-linear-gradient(#fafafa, #f4f4f4 40%, #e5e5e5);
-  background-position: 97% center;
-  background-repeat: no-repeat;
-  font-size: 22px;
-  margin: 20px;
-  overflow: hidden;
-  padding: 5px 10px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 300px;
-  color: #2d1a1b;
-  border: 3px solid #2d1a1b;
-  border-radius: 6px;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  padding-left: 15px;
+    -webkit-appearance: button;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-padding-end: 20px;
+    -webkit-padding-start: 2px;
+    -webkit-user-select: none;
+    background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#fafafa, #f4f4f4 40%, #e5e5e5);
+    background-position: 97% center;
+    background-repeat: no-repeat;
+    font-size: 22px;
+    margin: 20px;
+    overflow: hidden;
+    padding: 5px 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 300px;
+    color: #2d1a1b;
+    border: 3px solid #2d1a1b;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    padding-left: 15px;
 }
 
 select:focus {
-  outline: none;
-  border-color: #d3005d;
+    outline: none;
+    border-color: #d3005d;
 }
 
 nav {
-  height: 50px;
-  background-image: linear-gradient(
-    to bottom,
-    #a34b4c,
-    #9a4748,
-    #924344,
-    #894041,
-    #813c3d
-  );
-  display: flex;
-  justify-content: flex-end;
+    height: 50px;
+    background-image: linear-gradient( to bottom, #a34b4c, #9a4748, #924344, #894041, #813c3d);
+    display: flex;
+    justify-content: flex-end;
 }
 
 .Red {
-  color: darkred;
+    color: darkred;
 }
 
 .NavLinks {
-  list-style: none;
-  display: flex;
-  padding: 0;
-  margin: 0;
-  align-items: center;
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    align-items: center;
 }
 
 .NavItem {
-  font-size: 22px;
-  cursor: pointer;
-  margin: 0 20px;
+    font-size: 22px;
+    cursor: pointer;
+    margin: 0 20px;
 }
 
 .ScreenContainer {
-  height: 100vh;
+    height: 100vh;
 }
 
 .Products:focus {
-  outline: none;
+    outline: none;
 }
 
 .MainScreen {
-  display: flex;
-  height: 94.4%;
-  position: relative;
-  border-bottom: 15px solid #412e38;
-  border-right: 20px solid #412e38;
+    display: flex;
+    height: 94.4%;
+    position: relative;
+    border-bottom: 15px solid #412e38;
+    border-right: 20px solid #412e38;
 }
 
 .ReceiptForm,
 .ProductForm {
-  display: flex;
-  flex-direction: column;
-  border-left: 4px solid #412e38;
-  width: 30%;
+    display: flex;
+    flex-direction: column;
+    border-left: 4px solid #412e38;
+    width: 30%;
 }
 
 .ProductForm {
-  color: #fff8f8;
-  background-color: #493540;
+    color: #fff8f8;
+    background-color: #493540;
+}
+
+.ProductForm h2 {
+    text-align: center;
 }
 
 .ProductForm button {
-  background-color: #412e38;
-  background-image: linear-gradient(
-    to bottom,
-    #493540,
-    #47333e,
-    #45313c,
-    #43303a,
-    #412e38
-  );
-  border: 1px solid #2d1a1b;
+    background-color: #412e38;
+    background-image: linear-gradient( to bottom, #493540, #47333e, #45313c, #43303a, #412e38);
+    border: 1px solid #2d1a1b;
 }
 
 .ProductForm button:hover {
-  background-image: none;
+    background-image: none;
+}
+
+.ProductForm button:focus {
+    border: 3px solid #d3005d;
+    background-image: none;
 }
 
 .ProductForm span {
-  font-size: 26px;
+    font-size: 26px;
 }
 
 .Products {
-  position: relative;
-  width: 70%;
-  max-height: 100%;
+    position: relative;
+    width: 70%;
+    max-height: 100%;
 }
 
 .ProductsHeader {
-  padding: 5px 0;
-  width: 100%;
-  background-color: #412e38;
-  display: flex;
-  justify-content: center;
-  border-right: 1px solid #2d1a1b;
+    padding: 5px 0;
+    width: 100%;
+    background-color: #412e38;
+    display: flex;
+    justify-content: center;
+    border-right: 1px solid #2d1a1b;
 }
 
 .ProductsFilterInput {
-  font-size: 16px;
-  width: 500px;
+    font-size: 16px;
+    width: 500px;
 }
 
 .ProductPanel,
 .ReceiptPanel {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  height: 95%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 95%;
 }
 
 .ProductCard,
 .ReceiptCard {
-  background: none;
-  border: 3px solid transparent;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 25%;
-  height: 50%;
-  color: #2d1a1b;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+    background: none;
+    border: 3px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 25%;
+    height: 50%;
+    color: #2d1a1b;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
 }
 
 .ReceiptCard {
-  width: 33%;
+    width: 33%;
 }
 
 .ProductCard h1 {
-  font-size: 26px;
-  text-align: center;
+    font-size: 26px;
+    text-align: center;
 }
 
 .ProductCard div {
-  display: block;
+    display: block;
 }
 
 .ProductCard:focus,
 .ReceiptCard:focus {
-  background: none;
-  outline: none;
-  border-color: #d3005d;
-  background-image: linear-gradient(
-    to bottom,
-    #ffffff,
-    #fefdfe,
-    #fefcfd,
-    #fffafb,
-    #fff8f8
-  );
+    background: none;
+    outline: none;
+    border-color: #d3005d;
+    background-image: linear-gradient( to bottom, #ffffff, #fefdfe, #fefcfd, #fffafb, #fff8f8);
 }
 
 .ProductCard:hover,
 .ReceiptCard:hover {
-  background-image: linear-gradient(
-    to bottom,
-    #ffffff,
-    #fefdfe,
-    #fefcfd,
-    #fffafb,
-    #fff8f8
-  );
+    background-image: linear-gradient( to bottom, #ffffff, #fefdfe, #fefcfd, #fffafb, #fff8f8);
 }
 
 .ModalCover {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 3;
-  background-color: #453d3d77;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    background-color: #453d3d77;
 }
 
-.ModalCoverImportant{
-  z-index: 500;
+.ModalCoverImportant {
+    z-index: 500;
 }
 
 .ReceiptModal,
 .ConfirmationModal,
 .AmountPickerModal {
-  margin: auto;
-  margin-top: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 40%;
-  background-color: #fff;
+    margin: auto;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    background-color: #fff;
 }
 
 .ReceiptModal {
-  padding-bottom: 5px;
+    padding-bottom: 5px;
 }
 
 .ConfirmationModal {
-  width: 30%;
+    background-color: #2d1a1b;
+    color: #fff8f8;
+    width: 30%;
 }
 
 .AmountPickerModal h2 {
-  color: #2d1a1b;
+    color: #2d1a1b;
 }
 
 .PrintButton {
-  font-size: 26px;
-  position: absolute;
-  top: 65vh;
-  left: 70vw;
-  z-index: 10;
+    font-size: 26px;
+    position: absolute;
+    top: 65vh;
+    left: 70vw;
+    z-index: 10;
 }
 
 .Receipts {
-  width: 100%;
-  overflow: hidden;
+    width: 100%;
+    overflow: hidden;
 }
 
 .Receipts:focus {
-  outline: none;
+    outline: none;
 }
 
 .ButtonCloseModal {
-  position: absolute;
-  top: 100px;
-  left: 30%;
-  padding: 2px 8px;
+    position: absolute;
+    top: 100px;
+    left: 30%;
+    padding: 2px 8px;
+}
+
+.LoginScreen {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 30%;
+    background-color: #412e38;
+    color: #fff8f8;
+    margin-top: 15%;
+}
+
+.LoginFormItem {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.LoginFormItem select {
+    width: 330px;
+    margin: 0;
+}
+
+.LoginFormItem span {
+    font-weight: bolder;
+    margin: 0 10px;
+}
+
+.LoginButton {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    font-size: 28px;
 }
